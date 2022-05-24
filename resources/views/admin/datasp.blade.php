@@ -34,7 +34,17 @@
 					</ol>
                 </div>
                 <!-- row -->
-
+				<div class="d-flex flex-wrap mb-2 align-items-center justify-content-between">
+									<div class="d-flex mb-3">
+										<select class="form-control style-2 default-select mr-3">
+											<option selected disabled>Edit</option>
+											<option>Update</option>
+											<option>Delete</option>
+										</select>
+										<a href="javascript:void(0)" class="btn btn-primary text-nowrap"><i class="fa fa-file-text scale5 mr-3" aria-hidden="true"></i>Tambah</a>
+									</div>
+								</div>
+                
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">

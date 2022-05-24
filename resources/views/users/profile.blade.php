@@ -5,6 +5,7 @@
 {{url('/')}}
 @endsection
 @section('header_set')
+
 <li class="nav-item dropdown header-profile">
 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
 <img src="{{asset('assets/images/profile/17.jpg')}}" width="20" alt=""/>
@@ -14,18 +15,25 @@
 <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
 <span class="ml-2">Daftar / Masuk </span>
 </a>
-<a href="#" class="dropdown-item ai-icon">
+<form action="{{route ('user.logout')}}" method="post">
+    @csrf
+<a href="{{route ('user.logout')}}" class="dropdown-item ai-icon">
 <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 <span class="ml-2">Logout </span>
 </a>
+</form>
 </div>
 </li>
 @endsection
 @section('dashboard_nav')
 <li><a href="{{url('user/service')}}">Service</a></li>
 <li><a href="{{url('user/sparepart')}}">Sparepart</a></li>
-<li><a href="{{url('user/checkout')}}">Checkout</a></li>
-@endsection
+<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Checkout</a>
+    <ul aria-expanded="false">
+        <li><a href="{{url('user/checkout')}}">Service</a></li>
+        <li><a href="{{url('user/checkout')}}">Sparepart</a></li>
+    </ul>
+</li>@endsection
 @section('content')
      	<!--**********************************
             Content body start
@@ -46,12 +54,18 @@
 									</div>
 									<div class="profile-details">
 										<div class="profile-name px-3 pt-2">
-											<h4 class="text-primary mb-0">Sentracom</h4>
+											<h4 class="text-primary mb-0">{{$client['name']}}</h4>
 											<p>Service and Order</p>
 										</div>
 										<div class="profile-email px-2 pt-2">
-											<h4 class="text-muted mb-0">info@example.com</h4>
+											<h4 class="text-muted mb-0">{{$client['email']}}</h4>
 											<p>Email</p>
+										</div>
+                                        <div class="dropdown ml-auto">
+											<a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li class="dropdown-item"><a href=""><i class="fa fa-user-circle text-primary mr-2"></i> Edit Profile</a></li>
+											</ul>
 										</div>
 									</div>
                                 </div>
@@ -60,61 +74,24 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="profile-news">
-                                    <h5 class="text-primary d-inline">Sekilas Info</h5>
-                                    <div class="media pt-3 pb-3">
-                                        <img src="{{asset('assets/images/profile/5.jpg')}}" alt="image" class="mr-3 rounded" width="75">
-                                        <div class="media-body">
-                                            <h5 class="m-b-5"><a href="post-details.html" class="text-black">Collection of textile samples</a></h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
-                                        </div>
-                                    </div>
-                                    <div class="media pt-3 pb-3">
-                                        <img src="{{asset('assets/images/profile/6.jpg')}}" alt="image" class="mr-3 rounded" width="75">
-                                        <div class="media-body">
-                                            <h5 class="m-b-5"><a href="post-details.html" class="text-black">Collection of textile samples</a></h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
-                                        </div>
-                                    </div>
-                                    <div class="media pt-3 pb-3">
-                                        <img src="{{asset('assets/images/profile/7.jpg')}}" alt="image" class="mr-3 rounded" width="75">
-                                        <div class="media-body">
-                                            <h5 class="m-b-5"><a href="post-details.html" class="text-black">Collection of textile samples</a></h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-8">
+                    <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="profile-tab">
                                     <div class="custom-tab-1">
                                         <ul class="nav nav-tabs">
-                                            <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link active show">Tentang Kami</a>
+                                            <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link active show">Tentang Saya</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
                                             <div id="about-me" class="tab-pane fade active show">
-                                                <div class="profile-about-me">
-                                                    <div class="pt-4 border-bottom-1 pb-3">
-                                                        <p class="mb-2">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence was created for the bliss of souls like mine.I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.</p>
-                                                        <p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
-                                                    </div>
-                                                </div>
                                                 <div class="profile-personal-info">
-                                                    <h4 class="text-primary mb-4">Tentang Sentracom</h4>
-                                                    <div class="row mb-2">
+                                                    <div class="row mb-2 mt-3">
                                                         <div class="col-sm-3 col-5">
                                                             <h5 class="f-w-500">Owner <span class="pull-right">:</span>
                                                             </h5>
                                                         </div>
-                                                        <div class="col-sm-9 col-7"><span>Seila</span>
+                                                        <div class="col-sm-9 col-7"><span>{{$client['name']}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -122,33 +99,28 @@
                                                             <h5 class="f-w-500">Email <span class="pull-right">:</span>
                                                             </h5>
                                                         </div>
-                                                        <div class="col-sm-9 col-7"><span>Info@examplel.com</span>
+                                                        <div class="col-sm-9 col-7"><span>{{$client['email']}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Jam Buka <span class="pull-right">:</span></h5>
+                                                            <h5 class="f-w-500">No. Wa <span class="pull-right">:</span>
+                                                            </h5>
                                                         </div>
-                                                        <div class="col-sm-9 col-7"><span>--.-- - --.--</span>
+                                                        <div class="col-sm-9 col-7"><span>{{$client['Nowa']}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
                                                             <h5 class="f-w-500">Alamat <span class="pull-right">:</span></h5>
                                                         </div>
-                                                        <div class="col-sm-9 col-7"><span>Rosemont Avenue Melbourne, Florida</span>
+                                                        <div class="col-sm-9 col-7"><span>{{$client['alamat']}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mt-3">
                                                         <div class="col-sm-9 col-7">
 														<div class="post-input">
-																		<a class="btn-social facebook" href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
-																		<a class="btn-social google-plus" href="javascript:void(0)"><i class="fa fa-google-plus"></i></a>
-																		<a class="btn-social linkedin" href="javascript:void(0)" ><i class="fa fa-linkedin"></i></a>
-																		<a class="btn-social instagram" href="javascript:void(0)"><i class="fa fa-instagram"></i></a>
-																		<a class="btn-social twitter" href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
-																		<a class="btn-social youtube" href="javascript:void(0)"><i class="fa fa-youtube"></i></a>
-																		<a class="btn-social whatsapp" href="javascript:void(0)"><i class="fa fa-whatsapp"></i></a>
+                                                            <a class="btn-social whatsapp" href="javascript:void(0)"><i class="fa fa-whatsapp"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>

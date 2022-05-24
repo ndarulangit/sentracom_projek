@@ -42,15 +42,15 @@
                                             <a href="{{url('/')}}"><img src="{{asset('assets/images/logo-full.png')}}" alt=""></a>
                                         </div>
                                         <h4 class="text-center mb-4 text-white">Masuk Sebagai Teknisi</h4>
-                                        <form action="{{url('/login.step')}}" method="get">
+                                        <form action="{{route ('teknisi.login.post')}}" method="post">
                                             @csrf
                                             <div class="form-group">
-                                            <label class="mb-1 text-white"><strong>Email</strong></label>
-                                            <input type="email" class="form-control" name="email" placeholder="Masukkan Email" style="color:grey;">
+                                            <label for="email" class="mb-1 text-white"><strong>Email</strong></label>
+                                            <input type="email" id="email"  class="form-control" name="email" placeholder="Masukkan Email" style="color:grey;">
                                         </div>
                                         <div class="form-group">
-                                            <label class="mb-1 text-white"><strong>Password</strong></label>
-                                            <input type="password" class="form-control mb-4" placeholder="Masukkan Password">
+                                            <label for="password" class="mb-1 text-white"><strong>Password</strong></label>
+                                            <input type="password" name="password" id="password" class="form-control mb-4" placeholder="Masukkan Password">
                                         </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn bg-white text-primary btn-block">Masuk</button>

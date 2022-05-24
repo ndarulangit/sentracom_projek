@@ -24,8 +24,12 @@
 @section('dashboard_nav')
 <li><a href="{{url('user/service')}}">Service</a></li>
 <li><a href="{{url('user/sparepart')}}">Sparepart</a></li>
-<li><a href="{{url('user/checkout')}}">Checkout</a></li>
-@endsection
+<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Checkout</a>
+    <ul aria-expanded="false">
+        <li><a href="{{url('user/checkout')}}">Service</a></li>
+        <li><a href="{{url('user/checkout')}}">Sparepart</a></li>
+    </ul>
+</li>@endsection
 @section('content')
  <!--**********************************
             Content body start
@@ -34,7 +38,7 @@
             <div class="container-fluid">
                 <div class="page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Sparepart</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Service</a></li>
 						<li class="breadcrumb-item active"><a href="javascript:void(0)">Order Form</a></li>
 					</ol>
                 </div>
@@ -43,25 +47,26 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Detail Sparepart</h4>
+                                <h4 class="card-title">Detail Order</h4>
                             </div>
                             <div class="card-body">
                                 <div class="form-validation">
-                                    <form class="form-valide" action="#" method="post">
+                                    <form class="form-valide" action="{{route ('user.service.post')}}" method="post">
+                                        @csrf
                                         <div class="row">
                                             <div class="col-xl-8">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-laptop">Kode Laptop / Nama Laptop
+                                                    <label class="col-lg-4 col-form-label" for="code">Kode Laptop / Nama Laptop
                                                     </label>
                                                     <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-laptop" name="val-laptop" style="color:grey;" placeholder="Masukkan (Nama_barang-Kode_barang) disini ...">
+                                                    <input type="text" class="form-control" id="code" name="code" style="color:grey;" placeholder="Masukkan (Nama_barang-Kode_barang) disini ...">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-skill">Jenis Service
+                                                    <label class="col-lg-4 col-form-label" for="type">Jenis Service
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <select class="form-control default-select" id="val-skill" name="val-skill">
+                                                        <select class="form-control default-select" id="type" name="type">
                                                             <option value=" " disabled selected>Pilihlah Dibawah Ini</option>
                                                             <option value="Keyboard">Software</option>
                                                             <option value="Lcd">Hardware</option>
@@ -69,17 +74,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-skill">Booking Tanggal
+                                                    <label class="col-lg-4 col-form-label" for="mdate">mdateing Tanggal
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" class="form-control" placeholder="Booking Tanggal disini ..." id="mdate" style="color:grey;">
+                                                        <input type="text" name="mdate" class="form-control" placeholder="Booking Tanggal disini ..." id="mdate" style="color:grey;">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-alamat">Keterangan
+                                                    <label class="col-lg-4 col-form-label" for="ket">Keterangan
                                                     </label>
                                                     <div class="col-lg-8">
-                                                        <textarea class="form-control" id="val-alamat" name="val-alamat" rows="5" style="color:grey;" placeholder="Masukkan Keterangan Lengkap.."></textarea>
+                                                        <textarea class="form-control" id="ket" name="ket" rows="5" style="color:grey;" placeholder="Masukkan Keterangan Lengkap.."></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,4 +104,6 @@
         <!--**********************************
             Content body end
         ***********************************-->
+        @include('sweetalert::alert')
+
 @endsection

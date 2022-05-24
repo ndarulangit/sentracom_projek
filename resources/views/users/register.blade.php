@@ -41,25 +41,26 @@
 										<a href="index.html"><img src="{{asset('assets/images/logo-full.png')}}" alt=""></a>
 									</div>
                                     <h4 class="text-center mb-4 text-white">Daftarkan diri anda terlebih dahulu!</h4>
-                                    <form action="index.html">
+                                    <form action="{{route ('user.register.post')}}" method="post">
+                                        @csrf
                                         <div class="form-group">
-                                            <label class="mb-1 text-white"><strong>Nama Lengkap</strong></label>
-                                            <input type="text" class="form-control" placeholder="Masukkan Namamu Disini">
+                                            <label for="name" class="mb-1 text-white"><strong>Nama Lengkap</strong></label>
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan Namamu Disini">
                                         </div>
                                         <div class="form-group">
-                                            <label class="mb-1 text-white"><strong>Email</strong></label>
-                                            <input type="email" class="form-control" placeholder="hello@example.com">
+                                            <label for="email" class="mb-1 text-white"><strong>Email</strong></label>
+                                            <input type="email" name="email" id="email" class="form-control" placeholder="hello@example.com">
                                         </div>
                                         <div class="form-group">
-                                            <label class="mb-1 text-white"><strong>Password</strong></label>
-                                            <input type="text" class="form-control" placeholder="Masukkan Password disini">
+                                            <label for="password" class="mb-1 text-white"><strong>Password</strong></label>
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Password disini">
                                         </div>
                                         <div class="text-center mt-4">
                                             <button type="submit" class="btn bg-white text-primary btn-block">Daftar</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p class="text-white">Sudah Punya Akun? <a class="text-white" href="page-login.html">Masuk</a></p>
+                                        <p class="text-white">Sudah Punya Akun? <a class="text-white" href="{{route ('user.login')}}">Masuk</a></p>
                                     </div>
                                 </div>
                                 </div>

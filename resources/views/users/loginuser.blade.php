@@ -41,21 +41,27 @@
 										<a href="index.html"><img src="{{asset('assets/images/logo-full.png')}}" alt=""></a>
 									</div>
                                     <h4 class="text-center mb-4 text-white">Masuk Dengan Akunmu!</h4>
-                                    <form action="index.html">
+                                    <form action="{{route ('user.login.post')}}" method="post">
+                                        @csrf
                                         <div class="form-group">
-                                            <label class="mb-1 text-white"><strong>Email</strong></label>
-                                            <input type="email" class="form-control" value="hello@example.com">
+                                            <label for="email" class="mb-1 text-white"><strong>Email</strong></label>
+                                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="hello@example.com" id="email" autofocus required value="{{ old('email')}}">
+                                            @error('email')
+                                            <div class="invalid-feedback">
+                                                {{$message}}
+                                            </div>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label class="mb-1 text-white"><strong>Password</strong></label>
-                                            <input type="password" class="form-control mb-4" value="Password">
+                                            <label for="password" class="mb-1 text-white"><strong>Password</strong></label>
+                                            <input type="password" name="password" id="password" class="form-control mb-4" value="Password">
                                         </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn bg-white text-primary btn-block">Masuk</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p class="text-white">Tidak Punya Akun? <a class="text-white" href="./page-register.html">Daftar dulu disini!</a></p>
+                                        <p class="text-white">Tidak Punya Akun? <a class="text-white" href="{{route ('user.register')}}">Daftar dulu disini!</a></p>
                                     </div>
                                 </div>
                                 </div>
@@ -67,6 +73,7 @@
         </div>
     
     
+        @include('sweetalert::alert')
     <script src="{{asset('assets/vendor/global/global.min.js')}}"></script>
     <script src="{{asset('assets/js/custom.min.js')}}"></script>
 	<script src="{{asset('assets/js/deznav-init.js')}}"></script>

@@ -14,17 +14,25 @@
 <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
 <span class="ml-2">Daftar / Masuk </span>
 </a>
-<a href="#" class="dropdown-item ai-icon">
+<form action="{{route ('user.logout')}}" method="post">
+    @csrf
+<a href="{{route ('user.logout')}}" class="dropdown-item ai-icon">
 <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 <span class="ml-2">Logout </span>
 </a>
+</form>
 </div>
 </li>
 @endsection
 @section('dashboard_nav')
 <li><a href="{{url('user/service')}}">Service</a></li>
 <li><a href="{{url('user/sparepart')}}">Sparepart</a></li>
-<li><a href="{{url('user/checkout')}}">Checkout</a></li>
+<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Checkout</a>
+    <ul aria-expanded="false">
+        <li><a href="{{url('user/checkout')}}">Service</a></li>
+        <li><a href="{{url('user/checkout')}}">Sparepart</a></li>
+    </ul>
+</li>
 @endsection
 @section('content')
  <!--**********************************
@@ -94,8 +102,8 @@
                                                     <td class="py-2 text-right">
                                                     <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
                                                         <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="order-dropdown-0">
-                                                            <div class="py-2"><a class="dropdown-item text-success" href="#!">Invoice</a>
-                                                                <div class="dropdown-divider"></div><a class="dropdown-item text-warning" href="#!">Tracking</a>
+                                                            <div class="py-2"><a class="dropdown-item text-success" href="{{url('/user/invoice')}}">Invoice</a>
+                                                                <div class="dropdown-divider"></div><a class="dropdown-item text-warning" href="{{url('/user/history')}}">Tracking</a>
                                                             </div>
                                                         </div>
                                                     </div>

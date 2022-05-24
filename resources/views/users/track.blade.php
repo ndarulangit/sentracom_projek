@@ -24,8 +24,12 @@
 @section('dashboard_nav')
 <li><a href="{{url('user/service')}}">Service</a></li>
 <li><a href="{{url('user/sparepart')}}">Sparepart</a></li>
-<li><a href="{{url('user/checkout')}}">Checkout</a></li>
-@endsection
+<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Checkout</a>
+    <ul aria-expanded="false">
+        <li><a href="{{url('user/checkout')}}">Service</a></li>
+        <li><a href="{{url('user/checkout')}}">Sparepart</a></li>
+    </ul>
+</li>@endsection
 @section('content')
 
  <!--**********************************
