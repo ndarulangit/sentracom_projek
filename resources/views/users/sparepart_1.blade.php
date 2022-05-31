@@ -44,44 +44,62 @@
                 </div>
                 <!-- row -->
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
+                    <div class="col-12 col-md-4">
+                        <div class="card card-primary">
+                            <form action="" method="post">
+                                <div class="card-header">
+                                    <h4>Cari Sparepart</h4>
+                                </div>
+                                <div class="card-body">
+                                    <label for="">Nama Sparepart</label>
+                                    <select name="nama_sparepart" class="form-control">
+                                        <option value="0">Pilih Sparepart</option>
+                                        <option value="1">Monitor</option>
+                                    </select>
+                                    <hr>
+                                    <div class="class-footer d-flex justify-content-end">
+                                        <button class="btn btn-primary">Cari</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="card card-primary">
                             <div class="card-header">
-                                <h4 class="card-title">Detail Sparepart</h4>
+                                <h4>Data</h4>
                             </div>
                             <div class="card-body">
-                                <div class="form-validation">
-                                    <form class="form-valide" action="#" method="post">
-                                        <div class="row">
-                                            <div class="col-xl-8">
-                                                <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-laptop">Nama Barang-Kode Barang
-                                                    </label>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" class="form-control" id="val-laptop" name="val-laptop" style="color:grey;" placeholder="Masukkan (Nama_barang-Kode_barang) disini ...">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-skill">Part
-                                                    </label>
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control default-select" id="val-skill" name="val-skill">
-                                                            <option value=" " disabled selected>Pilihlah Dibawah Ini</option>
-                                                            <option value="Keyboard">Keyboard</option>
-                                                            <option value="Lcd">Lcd</option>
-                                                            <option value="Motherboard">Motherboard</option>
-                                                            <option value="Battery">Battery</option>
-                                                            <option value="Ram">Ram</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                                <div class="col-lg-12 text-right">
-                                                    <button type="submit" class="btn btn-lg btn-primary">Next</button>
-                                                </div>
-                                        </div>
-                                    </form>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama</th>
+                                                <th>Merek</th>
+                                                <th>Harga</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>1</th>
+                                                <th>Monitor</th>
+                                                <th>Asus</th>
+                                                <th>Rp.1.000.000</th>
+                                            </tr>
+                                            <tr>
+                                                <th>1</th>
+                                                <th>Monitor</th>
+                                                <th>Asus-12</th>
+                                                <th>Rp.1.000.000</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
+                                <div class="class-footer d-flex justify-content-end">
+                                    <button class="btn btn-primary">Pilih</button>
+                            </div>
                             </div>
                         </div>
                     </div>
