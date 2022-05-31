@@ -29,8 +29,8 @@
 <li><a href="{{url('user/sparepart')}}">Sparepart</a></li>
 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Checkout</a>
     <ul aria-expanded="false">
-        <li><a href="{{url('user/checkout')}}">Service</a></li>
-        <li><a href="{{url('user/checkout')}}">Sparepart</a></li>
+        <li><a href="{{url('user/checkout_sv')}}">Service</a></li>
+        <li><a href="{{url('user/checkout_sp')}}">Sparepart</a></li>
     </ul>
 </li>
 @endsection
@@ -56,7 +56,7 @@
                                             <tr>
                                                 <th class="align-middle">Identitas</th>
                                                 <th class="align-middle pr-2">Date</th>
-                                                <th class="align-middle minw100">Ship To</th>
+                                                <th class="align-middle minw100">Dikirim ke</th>
                                                 <th class="align-middle text-center">Status</th>
                                                 <th class="align-middle text-center">Amount</th>
                                                 <th class="no-sort"></th>

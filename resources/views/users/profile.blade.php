@@ -29,9 +29,9 @@
 <li><a href="{{url('user/service')}}">Service</a></li>
 <li><a href="{{url('user/sparepart')}}">Sparepart</a></li>
 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Checkout</a>
-    <ul aria-expanded="false">
-        <li><a href="{{url('user/checkout')}}">Service</a></li>
-        <li><a href="{{url('user/checkout')}}">Sparepart</a></li>
+<ul aria-expanded="false">
+        <li><a href="{{url('user/checkout_sv')}}">Service</a></li>
+        <li><a href="{{url('user/checkout_sp')}}">Sparepart</a></li>
     </ul>
 </li>@endsection
 @section('content')
@@ -61,11 +61,46 @@
 											<h4 class="text-muted mb-0">{{$client['email']}}</h4>
 											<p>Email</p>
 										</div>
-                                        <div class="dropdown ml-auto">
-											<a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
-											<ul class="dropdown-menu dropdown-menu-right">
-												<li class="dropdown-item"><a href=""><i class="fa fa-user-circle text-primary mr-2"></i> Edit Profile</a></li>
-											</ul>
+                                        <div class="ml-auto">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#editProfile">Edit Profile</button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="editProfile">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Edit Profile</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                <form action="{{route ('post.edit', $id)}}" method="post">
+                                                                    @csrf
+                                                                    <div class="form-group">
+                                                                        <label for="name" class="mb-1 text-grey">Nama Lengkap</label>
+                                                                        <input type="text" name="name" id="name" class="form-control" value="{{$client['name']}}">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="email" class="mb-1 text-grey">Email</label>
+                                                                        <input type="email" name="email" id="email" class="form-control" value="{{$client['email']}}">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="nowa" class="mb-1 text-grey">No. Wa</label>
+                                                                        <input type="nowa" name="nowa" id="nowa" class="form-control" value="{{$client['Nowa']}}">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="alamat" class="mb-1 text-grey">Alamat</label>
+                                                                        <input type="alamat" name="alamat" id="alamat" class="form-control" value="{{$client['alamat']}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 										</div>
 									</div>
                                 </div>
@@ -135,4 +170,6 @@
         <!--**********************************
             Content body end
         ***********************************-->
+        @include('sweetalert::alert')
+
 @endsection

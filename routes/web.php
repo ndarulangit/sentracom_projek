@@ -70,10 +70,12 @@ Route::group(['middleware'=>'user'], function() {
     Route::get('/user/service', [ServiceController::class,'service'])->name('user.service');
     Route::post('/user/service', [ServiceController::class,'orderse'])->name('user.service.post');
     Route::get('/user/sparepart', [UserController::class,'sparepart']);
-    Route::get('/user/checkout', [UserController::class,'checkout']);
+    Route::get('/user/checkout_sv', [UserController::class,'checkout_sv']);
+    Route::get('/user/checkout_sp', [UserController::class,'checkout_sp']);
     Route::get('/user/history', [UserController::class,'history']);
     Route::get('/user/invoice', [UserController::class,'invoice']);
-    Route::get('/user/profile', [UserController::class,'profile']);
+    Route::get('/user/profile', [UserController::class,'profile'])->name('user.profile');
+    Route::post('/user/profile/{id}', [UserController::class,'update'])->name('post.edit');
 
 });
 Route::get('/user/register', [RegisterController::class, 'index'])->name('user.register');
