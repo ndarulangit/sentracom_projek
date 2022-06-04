@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert ;
 
@@ -20,7 +21,16 @@ class UserController extends Controller
         return view('users.sparepart_1');
     }
     public function checkout_sv(){
-        return view('users.checkout_sv');
+        $user = Auth::guard('user')->user();
+        $user = collect($user);
+        $sv = DB::table('services')
+        ->select('services.code', 'services.ket', 'services.booking', 'services.status', 'services.amount',
+         'users.name', 'users.email', 'users.alamat')
+         ->join('users', 'users.id', '=', 'services.user_id')
+         ->where('services.user_id', '=', $user['id'])
+        ->orderBy('services.created_at', 'DESC')->get();
+        // dd($sv);
+        return view('users.checkout_sv', compact('sv'));
     }
     public function checkout_sp(){
         return view('users.checkout_sp');

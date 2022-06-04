@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     protected $fillable = [
-        'user_id', 'code', 'type', 'booking', 'ket'
+        'user_id', 'teknisi_id', 'code', 'type', 'booking', 'ket', 'status', 'amount'
     ];}

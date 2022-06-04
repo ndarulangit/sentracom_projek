@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\TeknisiLoginController;
 use App\Http\Controllers\Auth\UserLoginController;
@@ -44,7 +45,7 @@ Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin
 Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 //Admin Home page after login
 Route::group(['middleware'=>'admin'], function() {
-    Route::get('/admin/home', [PagesController::class, 'index']);
+    Route::get('/admin/home', [AdminController::class, 'homeindex']);
 });
 // // ============================================================================================================================================
 // //=====================TEKNISI=================================================================================

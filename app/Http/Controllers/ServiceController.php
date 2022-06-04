@@ -22,6 +22,7 @@ class ServiceController extends Controller
         
         $service  = new Service;
         $service -> user_id = $client['id'];
+        $service -> teknisi_id = 1;
         $service -> code = $request->get('code');
         $service -> type = $request->get('type');
         $service -> booking = $request->get('mdate');

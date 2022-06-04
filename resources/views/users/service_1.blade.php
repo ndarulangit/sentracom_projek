@@ -68,13 +68,13 @@
                                                     <div class="col-lg-6">
                                                         <select class="form-control default-select" id="type" name="type">
                                                             <option value=" " disabled selected>Pilihlah Dibawah Ini</option>
-                                                            <option value="Keyboard">Software</option>
-                                                            <option value="Lcd">Hardware</option>
+                                                            <option value="Software">Software</option>
+                                                            <option value="Hardware">Hardware</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="mdate">mdateing Tanggal
+                                                    <label class="col-lg-4 col-form-label" for="mdate">Booking Tanggal
                                                     </label>
                                                     <div class="col-lg-6">
                                                         <input type="text" name="mdate" class="form-control" placeholder="Booking Tanggal disini ..." id="mdate" style="color:grey;">
