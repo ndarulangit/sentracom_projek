@@ -17,8 +17,38 @@ class UserController extends Controller
         return view ('dashboard');
     }
 
-    public function sparepart(){
-        return view('users.sparepart_1');
+    public function sparepart(Request $request){
+        DB::statement("SET SQL_MODE=''");
+        // $sp = DB::table('spareparts');
+        $cr = $request->get('nama_sparepart');
+        $order = $request->get('subpro');
+        $fltr  = DB::table('spareparts')->select('*')
+        ->groupBy('nama')
+        ->get();
+        // ->distinct()
+        if (isset($cr)) {
+            $fltr2 = DB::table('spareparts')->select('*')
+            ->where('nama', 'LIKE', '%'.$cr.'%')
+            ->get();
+            // dump($fltr2);
+            return view('users.sparepart_1', compact('fltr', 'fltr2', 'cr'));
+        }
+        else{
+            // $fltr2 = DB::table('spareparts')->select('*')
+            // ->where('id', 0)
+            // ->get();
+            // dump($fltr2);
+            return view('users.sparepart_1', compact('fltr',  'cr'));
+        }
+    }
+    public function order(Request $request){
+        $order = $request->get('subpro');
+        DB::statement("SET SQL_MODE=''");
+        $item = DB::table('spareparts')->select('*')
+        ->where('id', $order)
+        ->get();
+        // dd($item);
+        return view('users.sparepart_2', compact('item'));
     }
     public function checkout_sv(){
         $user = Auth::guard('user')->user();

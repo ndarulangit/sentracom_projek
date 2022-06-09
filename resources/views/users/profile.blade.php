@@ -11,10 +11,6 @@
 <img src="{{asset('assets/images/profile/17.jpg')}}" width="20" alt=""/>
 </a>
 <div class="dropdown-menu dropdown-menu-right">
-<a href="#" class="dropdown-item ai-icon">
-<svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-<span class="ml-2">Daftar / Masuk </span>
-</a>
 <form action="{{route ('user.logout')}}" method="post">
     @csrf
 <a href="{{route ('user.logout')}}" class="dropdown-item ai-icon">
@@ -150,12 +146,6 @@
                                                             <h5 class="f-w-500">Alamat <span class="pull-right">:</span></h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7"><span>{{$client['alamat']}}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mt-3">
-                                                        <div class="col-sm-9 col-7">
-														<div class="post-input">
-                                                            <a class="btn-social whatsapp" href="javascript:void(0)"><i class="fa fa-whatsapp"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>

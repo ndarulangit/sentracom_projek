@@ -70,7 +70,9 @@ Route::group(['middleware'=>'user'], function() {
     Route::get('/', [UserController::class, 'index'])->name('home');
     Route::get('/user/service', [ServiceController::class,'service'])->name('user.service');
     Route::post('/user/service', [ServiceController::class,'orderse'])->name('user.service.post');
-    Route::get('/user/sparepart', [UserController::class,'sparepart']);
+    Route::get('/user/sparepart', [UserController::class,'sparepart'])->name('user.sp');
+    Route::post('/user/sparepart', [UserController::class,'sparepart'])->name('user.sp');
+    Route::post('/user/sparepart/kirim', [UserController::class,'order'])->name('user.order');
     Route::get('/user/checkout_sv', [UserController::class,'checkout_sv']);
     Route::get('/user/checkout_sp', [UserController::class,'checkout_sp']);
     Route::get('/user/history', [UserController::class,'history']);

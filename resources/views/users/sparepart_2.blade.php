@@ -10,14 +10,13 @@
 <img src="{{asset('assets/images/profile/17.jpg')}}" width="20" alt=""/>
 </a>
 <div class="dropdown-menu dropdown-menu-right">
-<a href="#" class="dropdown-item ai-icon">
-<svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-<span class="ml-2">Daftar / Masuk </span>
-</a>
-<a href="#" class="dropdown-item ai-icon">
+<form action="{{route ('user.logout')}}" method="post">
+    @csrf
+<a href="{{route ('user.logout')}}" class="dropdown-item ai-icon">
 <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 <span class="ml-2">Logout </span>
 </a>
+</form>
 </div>
 </li>
 @endsection
@@ -59,15 +58,16 @@
                                     <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
                                         <div class="product-detail-content">
                                             <!--Product details-->
+                                            @foreach ($item as $item)
                                             <div class="new-arrival-content pr">
-                                                <h4>Nama Part</h4>
+                                                <h4>{{$item->nama}} {{$item->merek}}</h4>
 												<div class="d-table mb-2">
-													<p class="price float-left d-block">IDR 100,000</p>
+													<p class="price float-left d-block">IDR {{$item->harga}}</p>
                                                 </div>
-                                                <p>Ketersediaan: <span class="item"> Ada <i
+                                                <p>Ketersediaan: <span class="item"> {{$item->jumlah}} <i
                                                             class="fa fa-shopping-basket"></i></span>
                                                 </p>
-                                                <p>Product code: <span class="item">0405689</span> </p>
+                                                <p>Product code: <span class="item">xxx-xxx-{{$item->id}}</span> </p>
                                                 <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                                                     If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
                                                 <br><br><br><br>
@@ -76,6 +76,7 @@
                                                             class="fa fa-shopping-basket mr-2"></i>Chekcout</a>
                                                 </div>
                                             </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
