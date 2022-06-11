@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Order;
+use App\Models\Sparepart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -34,10 +37,6 @@ class UserController extends Controller
             return view('users.sparepart_1', compact('fltr', 'fltr2', 'cr'));
         }
         else{
-            // $fltr2 = DB::table('spareparts')->select('*')
-            // ->where('id', 0)
-            // ->get();
-            // dump($fltr2);
             return view('users.sparepart_1', compact('fltr',  'cr'));
         }
     }
@@ -47,14 +46,33 @@ class UserController extends Controller
         $item = DB::table('spareparts')->select('*')
         ->where('id', $order)
         ->get();
-        // dd($item);
-        return view('users.sparepart_2', compact('item'));
+        $id_s =$item['0']->id; 
+        // dd($id_s);
+        return view('users.sparepart_2', compact('item', 'id_s'));
+    }
+    public function submit(Request $request, $id_s){
+        $client = collect(Auth::guard('user')->id());
+        $client = $client->get('0');
+        $itm = collect(Sparepart::find($id_s))->get('id');
+        // dd($client);
+        $order = new Order;
+        $order -> user_id = $client;
+        $order -> sparepart_id = $itm;
+        $order ->save();
+
+        // if ($order->save()) {
+        //     Sparepart::find($id_s)
+        //     ->decrement('jumlah');
+        // }
+
+        return redirect()->route('user.sp');
+
     }
     public function checkout_sv(){
         $user = Auth::guard('user')->user();
         $user = collect($user);
         $sv = DB::table('services')
-        ->select('services.code', 'services.ket', 'services.booking', 'services.status', 'services.amount',
+        ->select('services.id', 'services.code', 'services.ket', 'services.booking', 'services.status', 'services.amount',
          'users.name', 'users.email', 'users.alamat')
          ->join('users', 'users.id', '=', 'services.user_id')
          ->where('services.user_id', '=', $user['id'])
@@ -63,13 +81,25 @@ class UserController extends Controller
         return view('users.checkout_sv', compact('sv'));
     }
     public function checkout_sp(){
-        return view('users.checkout_sp');
+        $user = Auth::guard('user')->user();
+        $user = collect($user);
+        $sp = DB::table('orders')
+        ->select( 'orders.status','spareparts.nama', 'spareparts.merek', 'spareparts.harga',
+         'users.name', 'users.email', 'users.alamat')
+         ->join('spareparts', 'spareparts.id','=','orders.sparepart_id')
+         ->join('users', 'users.id', '=', 'orders.user_id')
+         ->where('orders.user_id', '=', $user['id'])
+        ->orderBy('orders.created_at', 'DESC')->get();
+        // dd($sp);
+        return view('users.checkout_sp', compact('sp'));
     }
     public function history(){
         return view('users.track');
     }
-    public function invoice(){
-        return view('users.invoice');
+    public function invoice(Request $request){
+        $ck = $request->all('orderan');
+        dd($ck);
+        // return view('users.invoice');
     }
     public function profile(){
         $client = Auth::guard('user')->user();
