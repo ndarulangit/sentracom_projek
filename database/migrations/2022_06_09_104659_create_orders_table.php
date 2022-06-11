@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('sparepart_id');
             $table->string('status')->default('Pending');
             $table->timestamps();
+            $table->integer('jumlah');
             $table->foreign('user_id')
             ->references('id')->on('users')->onDelete('cascade');
             $table->foreign('sparepart_id')

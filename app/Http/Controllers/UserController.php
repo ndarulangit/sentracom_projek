@@ -22,18 +22,15 @@ class UserController extends Controller
 
     public function sparepart(Request $request){
         DB::statement("SET SQL_MODE=''");
-        // $sp = DB::table('spareparts');
         $cr = $request->get('nama_sparepart');
         $order = $request->get('subpro');
         $fltr  = DB::table('spareparts')->select('*')
         ->groupBy('nama')
         ->get();
-        // ->distinct()
         if (isset($cr)) {
             $fltr2 = DB::table('spareparts')->select('*')
             ->where('nama', 'LIKE', '%'.$cr.'%')
             ->get();
-            // dump($fltr2);
             return view('users.sparepart_1', compact('fltr', 'fltr2', 'cr'));
         }
         else{
@@ -41,32 +38,16 @@ class UserController extends Controller
         }
     }
     public function order(Request $request){
-        $order = $request->get('subpro');
-        DB::statement("SET SQL_MODE=''");
-        $item = DB::table('spareparts')->select('*')
-        ->where('id', $order)
-        ->get();
-        $id_s =$item['0']->id; 
-        // dd($id_s);
-        return view('users.sparepart_2', compact('item', 'id_s'));
-    }
-    public function submit(Request $request, $id_s){
+        $t_order = $request->get('subpro');
         $client = collect(Auth::guard('user')->id());
-        $client = $client->get('0');
-        $itm = collect(Sparepart::find($id_s))->get('id');
-        // dd($client);
-        $order = new Order;
-        $order -> user_id = $client;
-        $order -> sparepart_id = $itm;
-        $order ->save();
-
-        // if ($order->save()) {
-        //     Sparepart::find($id_s)
-        //     ->decrement('jumlah');
-        // }
-
-        return redirect()->route('user.sp');
-
+        $jml = $request->get('qty');
+        for ($i=0; $i < count($t_order) ; $i++) { 
+            $order = new Order;
+            $order -> user_id = $client['0'];
+            $order -> sparepart_id = $t_order[$i];
+            $order -> jumlah = $jml[$i];
+            $order ->save();
+        }
     }
     public function checkout_sv(){
         $user = Auth::guard('user')->user();
@@ -84,7 +65,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user = collect($user);
         $sp = DB::table('orders')
-        ->select( 'orders.status','spareparts.nama', 'spareparts.merek', 'spareparts.harga',
+        ->select( 'spareparts.id', 'orders.status', 'orders.jumlah', 'spareparts.nama', 'spareparts.merek', 'spareparts.harga',
          'users.name', 'users.email', 'users.alamat')
          ->join('spareparts', 'spareparts.id','=','orders.sparepart_id')
          ->join('users', 'users.id', '=', 'orders.user_id')
