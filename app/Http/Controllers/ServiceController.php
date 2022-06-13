@@ -19,19 +19,23 @@ class ServiceController extends Controller
     public function orderse(Request $request){
         $client = Auth::guard('user')->user();
         $client = collect($client);
-        
-        $service  = new Service;
-        $service -> user_id = $client['id'];
-        $service -> teknisi_id = 1;
-        $service -> code = $request->get('code');
-        $service -> type = $request->get('type');
-        $service -> booking = $request->get('mdate');
-        $service -> ket = $request->get('ket');
-
-        $service->save();
-        if ($service->save()) {
-            Alert::success('Berhasil!!', 'Orderan anda berhasil dikirim');
-            return view ('users.service_1', compact('service'));
+        $valid = $request->all();
+        if (isset($valid['code'])&&isset($valid['mdate'])&&isset($valid['ket'])) {
+            $service  = new Service;
+            $service -> user_id = $client['id'];
+            $service -> teknisi_id = 1;
+            $service -> code = $request->get('code');
+            $service -> type = $request->get('type');
+            $service -> booking = $request->get('mdate');
+            $service -> ket = $request->get('ket');
+    
+            $service->save();
+                Alert::success('Berhasil!!', 'Orderan anda berhasil dikirim');
+                return view ('users.service_1', compact('service'));
+        }
+        else{
+            Alert::error('Gagal!!', 'Anda gagal melakukan orderan service');
+            return redirect()->route('user.service');
         }
         // dd($service);
     }

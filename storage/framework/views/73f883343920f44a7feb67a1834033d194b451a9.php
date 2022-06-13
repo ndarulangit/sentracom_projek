@@ -11,7 +11,7 @@
 <img src="<?php echo e(asset('assets/images/profile/17.jpg')); ?>" width="20" alt=""/>
 </a>
 <div class="dropdown-menu dropdown-menu-right">
-<form action="<?php echo e(route ('user.logout')); ?>" method="post">
+<a href="#" <form action="<?php echo e(route ('user.logout')); ?>" method="post">
     <?php echo csrf_field(); ?>
 <a href="<?php echo e(route ('user.logout')); ?>" class="dropdown-item ai-icon">
 <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
@@ -87,21 +87,81 @@
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Jumlah</th>
+                                                    <th>Stock</th>
                                                     <th>Nama</th>
                                                     <th>Merek</th>
                                                     <th>Harga</th>
-                                                    <th></th>
+                                                    <th>Jumlah</th>
                                                 </tr>
                                             </thead>
                                                 <tbody>
                                                     <?php $__currentLoopData = $fltr2; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <tr>
-                                                    <th><input type="checkbox" name="subpro" value="<?php echo e($itm->id); ?>"></th>
+                                                    <th><input type="checkbox" name="subpro[]" value=<?php echo e($itm->id); ?>></th>
                                                     <th><?php echo e($itm->jumlah); ?></th>
-                                                    <th><?php echo e($itm->nama); ?></th>
-                                                    <th><?php echo e($itm->merek); ?></th>
+                                                    <th><a type="button" data-toggle="modal" data-target="#test_<?php echo e($itm->id); ?>"><?php echo e($itm->nama); ?></th>
+                                                    <th><a type="button" data-toggle="modal" data-target="#test_<?php echo e($itm->id); ?>"><?php echo e($itm->merek); ?></th>
                                                     <th>IDR<?php echo e($itm->harga); ?></th>
+                                                    <th class="text-center"><select style="border: 0ch;" name="qty[]">
+                                                        <option selected disabled value=" "></option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select></th>
+                                                    <!-- Modal Detail !-->
+                                                    <div class="modal fade bd-example-modal-lg" id="test_<?php echo e($itm->id); ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Detail Sparepart</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="card">
+                                                                                <div class="card-body">
+                                                                                    <div class="row">
+                                                                                        <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
+                                                                                            <!-- Tab panes -->
+                                                                                            <div class="tab-content">
+                                                                                                <div role="tabpanel" class="tab-pane fade show active" id="first">
+                                                                                                    <img class="img-fluid" src="<?php echo e(asset('assets/images/product/1.jpg')); ?>" alt="">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--Tab slider End-->
+                                                                                        <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
+                                                                                            <div class="product-detail-content">
+                                                                                                <!--Product details-->
+                                                                                                <div class="new-arrival-content pr">
+                                                                                                    <h4><?php echo e($itm->nama); ?> <?php echo e($itm->merek); ?></h4>
+                                                                                                    <div class="d-table mb-2">
+                                                                                                        <p class="price float-left d-block">IDR <?php echo e($itm->harga); ?></p>
+                                                                                                    </div>
+                                                                                                    <p>Ketersediaan: <span class="item"> <?php echo e($itm->jumlah); ?> <i
+                                                                                                                class="fa fa-shopping-basket"></i></span>
+                                                                                                    </p>
+                                                                                                    <p>Product code: <span class="item">xxx-xxx-<?php echo e($itm->id); ?></span> </p>
+                                                                                                    <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+                                                                                                        If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Modal End !-->
                                                 </tr>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </tbody>
@@ -119,8 +179,8 @@
             </div>
         </div>
         <!--**********************************
-        Content body end
-        ***********************************-->
-<?php $__env->stopSection(); ?>
+        Content body end !-->
+        <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+        <?php $__env->stopSection(); ?>
 <?php echo $__env->make('\layout\viewnavbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\sentracom_projek\resources\views/users/sparepart_1.blade.php ENDPATH**/ ?>

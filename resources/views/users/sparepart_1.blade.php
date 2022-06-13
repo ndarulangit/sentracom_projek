@@ -178,4 +178,7 @@
             </div>
         </div>
         <!--**********************************
-        Content body end
+        Content body end !-->
+        @include('sweetalert::alert')
+
+        @endsection

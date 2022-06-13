@@ -48,24 +48,23 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <form action="<?php echo e(route('user.invoice')); ?>" method="post">
+                                    <form action="<?php echo e(route('user.invoice')); ?>" enctype="multipart/form-data" method="post">
                                         <?php echo csrf_field(); ?>
                                     <table class="table table-sm mb-0 table-responsive-lg text-black">
                                         <thead>
                                             <tr>
-                                                <th></th>
                                                 <th class="align-middle">Identitas</th>
                                                 <th class="align-middle pr-2">Tanggal</th>
                                                 <th class="align-middle minw100">Dikirim ke</th>
                                                 <th class="align-middle minw100">Keterangan</th>
                                                 <th class="align-middle text-center">Status</th>
                                                 <th class="align-middle text-center">Harga</th>
+                                                <th class="no-sort"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="orders">
                                             <?php $__currentLoopData = $sv; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr class="btn-reveal-trigger">
-                                                <td><input type="checkbox" name="orderan" value="<?php echo e($data->id); ?>"></td>
                                                     <td class="py-2">
                                                         <strong class="text-black" style="font-size : 20px;"><?php echo e($data->name); ?></strong><br /><p><?php echo e($data->email); ?><br><?php echo e($data->code); ?></p></td>
                                                     <td class="py-2"><?php echo e($data->booking); ?></td>
@@ -75,6 +74,13 @@
                                                     <td class="py-2 text-center"><?php echo e($data->amount); ?>
 
                                                     </td>
+                                                   <td> <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
+                                                    <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="order-dropdown-0">
+                                                    <div class="py-2"><a class="dropdown-item text-success" href="<?php echo e(route('user.invoice')); ?>">Invoice</a>
+                                                            <div class="dropdown-divider"></div><a class="dropdown-item text-warning" href="<?php echo e(route('user.track')); ?>">Tracking</a>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
                                             </tr>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
@@ -82,13 +88,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                    <div class="py-2"><button type="submit" class="dropdown-item text-success" >Order</button>
-                    </form>
-                    <div class="dropdown-divider"></div><a class="dropdown-item text-warning" href="<?php echo e(route('user.track')); ?>">Tracking</a>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\invoice;
 use App\Models\Order;
 use App\Models\Sparepart;
 use Illuminate\Support\Facades\Auth;
@@ -41,13 +42,53 @@ class UserController extends Controller
         $t_order = $request->get('subpro');
         $client = collect(Auth::guard('user')->id());
         $jml = $request->get('qty');
-        for ($i=0; $i < count($t_order) ; $i++) { 
-            $order = new Order;
-            $order -> user_id = $client['0'];
-            $order -> sparepart_id = $t_order[$i];
-            $order -> jumlah = $jml[$i];
-            $order ->save();
+        if (isset($t_order)&&isset($jml)) {
+            for ($i=0; $i < count($t_order) ; $i++) { 
+                $order = new Order;
+                $order -> user_id = $client['0'];
+                $order -> sparepart_id = $t_order[$i];
+                $order -> jumlah = $jml[$i];
+                $order ->save();
+            }
+            Alert::success('Berhasil!!', 'Orderan anda berhasil');
+            return redirect()->route('user.sp');
+            # code...
+        } else{
+            Alert::error('Gagal!!', 'Anda belum memilih produk');
+            return redirect()->route('user.sp');
         }
+    }
+    public function invoice(){
+        $inv = DB::table('invoices')
+        ->select('invoices.created_at', 'invoices.user_id', 'invoices.order_id', 
+        'orders.status','users.name', 'users.alamat', 'users.email', 'users.nowa', 'orders.jumlah',
+        'spareparts.harga', 'spareparts.nama', 'spareparts.merek')
+        ->join('users', 'users.id','=', 'invoices.user_id')
+        ->join('orders', 'orders.id', '=', 'invoices.order_id')
+        ->join('spareparts', 'spareparts.id', '=', 'orders.sparepart_id')
+        ->where('invoices.user_id', collect(Auth::guard('user')->user())['id'])
+        ->get();
+        return view('users.invoice', compact('inv'));
+    }
+    public function invoice_post(Request $request){
+        // $bukti = $request->get('bukti');
+        $vali = $request->get('order');
+
+        // if (!$vali) {
+        //     DB::table('invoices')->truncate();
+        // } else {
+        //     DB::table('spareparts')->update([
+
+        //     ])
+        // }
+        // dd($vali);
+        // if ($_POST('order')) {
+        //     DB::table('invoices')->truncate();
+        // }elseif ($_POST('cancel')) {
+        //     DB::table('invoices')->truncate();
+        // }
+        // return redirect()->route('cekot.sp');
+
     }
     public function checkout_sv(){
         $user = Auth::guard('user')->user();
@@ -65,7 +106,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user = collect($user);
         $sp = DB::table('orders')
-        ->select( 'spareparts.id', 'orders.status', 'orders.jumlah', 'spareparts.nama', 'spareparts.merek', 'spareparts.harga',
+        ->select( 'orders.id', 'orders.status', 'orders.jumlah', 'spareparts.nama', 'spareparts.merek', 'spareparts.harga',
          'users.name', 'users.email', 'users.alamat')
          ->join('spareparts', 'spareparts.id','=','orders.sparepart_id')
          ->join('users', 'users.id', '=', 'orders.user_id')
@@ -77,9 +118,23 @@ class UserController extends Controller
     public function history(){
         return view('users.track');
     }
-    public function invoice(Request $request){
-        $ck = $request->all('orderan');
-        dd($ck);
+    public function sp_order(Request $request){
+       $ck = $request->get('cekot');
+       $us = collect(Auth::guard('user')->user());
+       if (isset($ck)) {
+           for ($i=0; $i < count($ck) ; $i++) { 
+               // # code...
+                $invoice = new invoice;
+                $invoice->user_id = $us['id'];
+                $invoice->order_id = $ck[$i];
+                $invoice->save();
+            }
+            return redirect()->route('user.invoice');
+       }
+       else{
+        return redirect()->route('cekot.sp');
+       }
+    //    dd($us['id']);
         // return view('users.invoice');
     }
     public function profile(){
@@ -98,7 +153,7 @@ class UserController extends Controller
         ]);
 
         if ($post->update()) {
-            Alert::success('Berhasil!!', 'Orderan anda berhasil dikirim');
+            Alert::success('Berhasil!!', 'Data anda berhasil di update');
             return redirect()
                 ->route('user.profile');
         }

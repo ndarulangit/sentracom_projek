@@ -43,46 +43,68 @@
 						<li class="breadcrumb-item active"><a href="javascript:void(0)">List Order</a></li>
 					</ol>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-sm mb-0 table-responsive-lg text-black">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-middle">Identitas</th>
-                                                <th class="align-middle minw100">Dikirim ke</th>
-                                                <th class="align-middle minw100">Barang</th>
-                                                <th class="align-middle text-center">Status</th>
-                                                <th class="align-middle text-center">Harga</th>
-                                                <th class="no-sort"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="orders">
-                                            <?php $__currentLoopData = $sp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <tr class="btn-reveal-trigger">
-                                                    <td class="py-2">
-                                                        <strong class="text-black" style="font-size : 20px;"><?php echo e($data->name); ?></strong><br /><p><?php echo e($data->email); ?></p></td>
-                                                    <td class="py-2"><?php echo e($data->alamat); ?></td>
-                                                    <td class="py-2"><?php echo e($data->nama); ?> <?php echo e($data->merek); ?></td>
-                                                    <td class="py-2 text-center"><span class="badge badge-secondary"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                    <td class="py-2 text-center"><?php echo e($data->harga); ?>
 
-                                                    </td>
-                                                    <td class="py-2 text-right">
-                                                    <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
-                                                        <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="order-dropdown-0">
-                                                        <div class="py-2"><a class="dropdown-item text-success" href="<?php echo e(route('user.invoice')); ?>">Invoice</a>
-                                                                <div class="dropdown-divider"></div><a class="dropdown-item text-warning" href="<?php echo e(route('user.track')); ?>">Tracking</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </tbody>
-                                    </table>
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Nav tabs -->
+                            <div class="custom-tab-1">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#home1">Checkout</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#profile1">Tracking</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="home1" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <form action="<?php echo e(route('user.sp.order')); ?>" method="post">
+                                                <?php echo csrf_field(); ?>
+                                            <table class="table table-sm mb-0 table-responsive-lg text-black">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="align-middle">Identitas</th>
+                                                        <th class="align-middle minw100">Dikirim ke</th>
+                                                        <th class="align-middle minw100">Barang</th>
+                                                        <th class="align-middle text-center">Status</th>
+                                                        <th class="align-middle text-center">Harga</th>
+                                                        <th class="no-sort"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="orders">
+                                                    <?php $__currentLoopData = $sp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <tr class="btn-reveal-trigger">
+                                                        <td class="py-2">
+                                                        <strong class="text-black" style="font-size : 20px;"><?php echo e($data->name); ?></strong><br /><p><?php echo e($data->email); ?></p></td>
+                                                        <td class="py-2"><?php echo e($data->alamat); ?></td>
+                                                        <td class="py-2"><?php echo e($data->nama); ?> <?php echo e($data->merek); ?></td>
+                                                        <td class="py-2 text-center"><span class="badge badge-secondary"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                        <td class="py-2 text-center">IDR <?php echo e(($data->harga)*($data->jumlah)); ?>
+
+                                                            </td>
+                                                        <td class="py-2 text-right">
+                                                            </td>
+                                                        <td><input type="checkbox" name="cekot[]" value=<?php echo e($data->id); ?>></td>
+                                                    </tr>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="pt-3"><button type="submit" class="btn btn-lg btn-primary">Order</button></div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile1">
+                                        <div class="pt-4">
+                                            <h4>This is profile title</h4>
+                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
+                                            </p>
+                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -93,5 +115,6 @@
         <!--**********************************
             Content body end
         ***********************************-->
+        
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('\layout\viewnavbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\sentracom_projek\resources\views/users/checkout_sp.blade.php ENDPATH**/ ?>

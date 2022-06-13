@@ -45,8 +45,8 @@
                     <div class="col-lg-12">
 
                         <div class="card">
-                            <div class="card-header"> Invoice <strong>25 / 03 / 2022</strong> <span class="float-right">
-                                    <strong>Status: </strong><span class="badge badge-secondary">Pending</span></span> </div>
+                            <div class="card-header"> Invoice <strong>{{date('Y/m/d')}}</strong> <span class="float-right">
+                                    <strong>Status: </strong><span class="badge badge-info">Process</span></span> </div>
                             <div class="card-body">
                                 <div class="row mb-5">
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
@@ -58,10 +58,10 @@
                                     </div>
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <h6>To:</h6>
-                                        <div> <span class="badge badge-success mb-2">Bob Mart</span> </div>
-                                        <div>43-190 Mikolow, Poland</div>
-                                        <div>Email: marek@daniel.com</div>
-                                        <div>Phone: +48 123 456 789</div>
+                                        <div> <span class="badge badge-success mb-2">{{$inv['0']->name}}</span> </div>
+                                        <div>{{$inv['0']->alamat}}</div>
+                                        <div>Email: {{$inv['0']->email}}</div>
+                                        <div>Phone: {{$inv['0']->nowa}}</div>
                                     </div>
                                     <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end justify-content-md-center justify-content-xs-start">
                                         <div class="row align-items-center">
@@ -70,7 +70,14 @@
 													<img class="logo-abbr mr-2" src="{{asset ('assets/images/logo.png')}}" alt="">
 													<img class="logo-compact" src="{{asset ('assets/images/logo-text.png')}}" alt="">
 												</div>
-                                                <span>Transfer sesuai harga : <br><strong class="d-block mt-1">IDR 100,000</strong>
+                                                <?php
+                                                $total = 0;
+                                                for ($i=0; $i <count($inv) ; $i++) { 
+                                                    $total += $inv[$i]->harga*$inv[$i]->jumlah;
+                                                    # code...
+                                                }
+                                                ?>
+                                                <span>Transfer sesuai harga : <br><strong class="d-block mt-1">{{$total}}</strong>
                                                     <strong>=========================</strong></span><br>
                                                 <small class="text-muted">No. Rekening = xx xxxxx xxx</small>
                                             </div>
@@ -83,71 +90,36 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th class="center">#</th>
-                                                <th>Item</th>
-                                                <th>Description</th>
+                                                <th class="center">#Kode</th>
+                                                <th>Nama Item</th>
+                                                <th>Merek</th>
                                                 <th class="right">Harga</th>
                                                 <th class="center">Jumlah</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($inv as $itm)
                                             <tr>
-                                                <td class="center">1</td>
-                                                <td class="left strong">Nama Produk</td>
-                                                <td class="left">Kode Device Produk</td>
-                                                <td class="right">IDR 100,000</td>
-                                                <td class="center">1</td>
+                                                <td class="center">xxx{{$itm->order_id}}</td>
+                                                <td class="left strong">{{$itm->nama}}</td>
+                                                <td class="left">{{$itm->merek}}</td>
+                                                <td class="right">IDR {{$itm->harga}}</td>
+                                                <td class="center">{{$itm->jumlah}}</td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                 <!-- Button trigger modal -->
-                                 <button type="button" class="btn btn-xs btn-secondary ml-2" data-toggle="modal" data-target="#exampleModalCenter" style="opacity:50%;"><i class="fa fa-solid fa-plus"></i></button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Tambah Sparepart</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                <form class="form-valide" action="#" method="post">
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-12">
-                                                            <input type="text" class="form-control" id="val-laptop" name="val-laptop" style="color:grey;" placeholder="Masukkan (Nama_barang-Kode_barang) disini ...">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-8">
-                                                            <select class="form-control default-select" id="val-skill" name="val-skill">
-                                                                <option value=" " disabled selected>Pilih Part Dibawah Ini</option>
-                                                                <option value="Keyboard">Keyboard</option>
-                                                                <option value="Lcd">Lcd</option>
-                                                                <option value="Motherboard">Motherboard</option>
-                                                                <option value="Battery">Battery</option>
-                                                                <option value="Ram">Ram</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Next</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 <div class="row">
                                     <div class="col-lg-7 mt-3">
                                     <table class="table table-clear">
+                                        <form action="{{route('invoice.post')}}" method="post">
+                                            @csrf
                                             <tbody>
                                                 <tr class="left">
                                                     <div class="input-group">
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input">
+                                                            <input type="file" name="bukti" class="custom-file-input">
                                                             <label class="custom-file-label">Upload Bukti Transfer disini</label>
                                                         </div>
                                                     </div>
@@ -164,18 +136,19 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="left"><strong>Total</strong></td>
-                                                    <td class="right"><strong>IDR 100,000</strong><br>
+                                                    <td class="right"><strong>IDR {{$total+14000}}</strong><br>
                                                 </tr>
                                                 <tr>
                                                     <td class="left">
-                                                    <a class="btn btn-secondary btn-lg" href="javascript:void(0)"><i class="ml-0"></i>Cancel</a>
+                                                    <button name="cancel" value="cancel" type="submit" class="btn btn-secondary btn-lg" href="javascript:void(0)"><i class="ml-0"></i>Cancel</button>
                                                     </td>
                                                     <td class="right">
                                                         <div class="pt-0">
-                                                        <a class="btn btn-primary btn-lg" href="javascript:void(0)"><i class="mr-0"></i>Order</a>
+                                                        <button name="order" value="order" type="submit" class="btn btn-primary btn-lg" href="javascript:void(0)"><i class="mr-0"></i>Order</button>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                </form>
                                             </tbody>
                                         </table>
                                     </div>
