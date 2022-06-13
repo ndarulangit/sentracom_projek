@@ -73,14 +73,26 @@ class UserController extends Controller
     public function invoice_post(Request $request){
         // $bukti = $request->get('bukti');
         $vali = $request->get('order');
-
-        // if (!$vali) {
-        //     DB::table('invoices')->truncate();
-        // } else {
-        //     DB::table('spareparts')->update([
-
-        //     ])
-        // }
+        
+        if (!$vali) {
+            DB::table('invoices')->truncate();
+        } else {
+            $inv = DB::table('invoices')->get();
+            for ($i=0; $i <count($inv) ; $i++) { 
+                # code...
+                $jml = DB::table('orders')->select('jumlah') 
+                ->where('id', $inv[$i]->order_id)
+                ->get();
+                DB::table('spareparts')
+                ->join('orders', 'orders.sparepart_id', '=', 'spareparts.id')
+                ->where('orders.id', $inv[$i]->order_id)->decrement('spareparts.jumlah', $jml['0']->jumlah);
+                DB::table('orders')
+                ->where('id', $inv[$i]->order_id)->update([
+                    "status" => "Validate"
+                ]);
+                DB::table('invoices')->truncate();
+            }
+        }
         // dd($vali);
         // if ($_POST('order')) {
         //     DB::table('invoices')->truncate();

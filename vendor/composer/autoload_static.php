@@ -562,6 +562,7 @@ class ComposerStaticInit285c773af21e8381ef298815c82cc013
         'App\\Models\\Sparepart' => __DIR__ . '/../..' . '/app/Models/Sparepart.php',
         'App\\Models\\Teknisi' => __DIR__ . '/../..' . '/app/Models/Teknisi.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\Validasi' => __DIR__ . '/../..' . '/app/Models/Validasi.php',
         'App\\Models\\invoice' => __DIR__ . '/../..' . '/app/Models/invoice.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
