@@ -8,6 +8,7 @@ use App\Models\Sparepart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Validasi;
 use RealRashid\SweetAlert\Facades\Alert ;
 
 use Illuminate\Http\Request;
@@ -70,28 +71,34 @@ class UserController extends Controller
         ->get();
         return view('users.invoice', compact('inv'));
     }
-    public function invoice_post(Request $request){
+    public function invoice_post(Request $request, $total){
         // $bukti = $request->get('bukti');
         $vali = $request->get('order');
-        
+        $a = [];
         if (!$vali) {
             DB::table('invoices')->truncate();
         } else {
-            $inv = DB::table('invoices')->get();
-            for ($i=0; $i <count($inv) ; $i++) { 
+            $invo = DB::table('invoices')->get();
+            for ($i=0; $i <count($invo) ; $i++) { 
                 # code...
                 $jml = DB::table('orders')->select('jumlah') 
-                ->where('id', $inv[$i]->order_id)
+                ->where('id', $invo[$i]->order_id)
                 ->get();
                 DB::table('spareparts')
                 ->join('orders', 'orders.sparepart_id', '=', 'spareparts.id')
-                ->where('orders.id', $inv[$i]->order_id)->decrement('spareparts.jumlah', $jml['0']->jumlah);
+                ->where('orders.id', $invo[$i]->order_id)->decrement('spareparts.jumlah', $jml['0']->jumlah);
                 DB::table('orders')
-                ->where('id', $inv[$i]->order_id)->update([
+                ->where('id', $invo[$i]->order_id)->update([
                     "status" => "Validate"
                 ]);
-                DB::table('invoices')->truncate();
+                array_push($a, $invo[$i]->order_id);
             }
+            $validasi = new Validasi;
+            $validasi->bukti = $request->get('bukti');
+            $validasi->order_id = implode(",", $a);
+            $validasi->total = $total;
+            $validasi->save();
+            DB::table('invoices')->truncate();
         }
         // dd($vali);
         // if ($_POST('order')) {

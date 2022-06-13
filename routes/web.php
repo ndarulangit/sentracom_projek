@@ -78,7 +78,7 @@ Route::group(['middleware'=>'user'], function() {
     Route::get('/user/checkout_sp', [UserController::class,'checkout_sp'])->name('cekot.sp');
     Route::get('/user/history', [UserController::class,'history'])->name('user.track');
     Route::get('/user/invoice', [UserController::class,'invoice'])->name('user.invoice');
-    Route::post('/user/invoice', [UserController::class,'invoice_post'])->name('invoice.post');
+    Route::post('/user/invoice/{total}', [UserController::class,'invoice_post'])->name('invoice.post');
     Route::post('/user/checkout_sp/order', [UserController::class,'sp_order'])->name('user.sp.order');
     Route::get('/user/profile', [UserController::class,'profile'])->name('user.profile');
     Route::post('/user/profile/{id}', [UserController::class,'update'])->name('post.edit');

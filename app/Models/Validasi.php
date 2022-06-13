@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Validasi extends Model
 {
     protected $fillable =[
-        'bukti', 'order_id'
-    ];
-    protected $cast =[
-        'order_id' => 'array'
+        'bukti', 'order_id', 'total'
     ];
 }

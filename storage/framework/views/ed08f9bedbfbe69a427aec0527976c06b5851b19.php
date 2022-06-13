@@ -114,7 +114,7 @@
                                 <div class="row">
                                     <div class="col-lg-7 mt-3">
                                     <table class="table table-clear">
-                                        <form action="<?php echo e(route('invoice.post')); ?>" method="post">
+                                        <form action="<?php echo e(route('invoice.post', $total)); ?>" method="post">
                                             <?php echo csrf_field(); ?>
                                             <tbody>
                                                 <tr class="left">

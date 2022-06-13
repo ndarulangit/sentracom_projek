@@ -16,7 +16,8 @@ class CreateValidasisTable extends Migration
         Schema::create('validasis', function (Blueprint $table) {
             $table->id();
             $table->binary('bukti');
-            $table->json('order_id');
+            $table->string('order_id');
+            $table->integer('total');
             $table->timestamps();
         });
     }
