@@ -5,6 +5,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\TeknisiLoginController;
+use App\Http\Controllers\TeknisiController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServiceController;
@@ -21,31 +22,24 @@ use App\Http\Controllers\RegisterController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/', [PagesController::class,'home']);
-// Route::get('/user/service', [PagesController::class,'service']);
-// Route::get('/user/sparepart', [PagesController::class,'sparepart']);
-// Route::get('/user/checkout', [PagesController::class,'checkout']);
-// Route::get('/user/history', [PagesController::class,'history']);
-// Route::get('/user/profile', [PagesController::class,'profile']);
-// Route::get('/', [PagesController::class,'home']);
-// Route::get('/', [PagesController::class,'home']);
-
-// Route::get('/login', [PagesController::class,'login']);
-// Route::get('/teknisi', [PagesController::class,'teknisi']);
-// Route::get('/teknisi/service', [PagesController::class,'teknisi_s']);
-// Route::get('/admin', [PagesController::class,'admin']);
-// Route::get('/admin/sparepart', [PagesController::class,'admin_d']);
-// Route::get('/admin/history', [PagesController::class,'admin_h']);
-
 // ============================================================================================================================================
 // =====================ADMIN=================================================================================
 // ============================================================================================================================================
+Route::get('/login', [PagesController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [PagesController::class, 'step'])->name('login.step');
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.post');
 Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 //Admin Home page after login
 Route::group(['middleware'=>'admin'], function() {
-    Route::get('/admin/home', [AdminController::class, 'homeindex']);
+    Route::get('/admin/dashboard', [AdminController::class, 'database'])->name('dashboard.admin');
+    Route::get('/admin/history', [AdminController::class, 'history'])->name('history.admin');
+    Route::get('/admin/confirm', [AdminController::class, 'orderan'])->name('confirm.admin');
+    Route::post('/admin/confirm', [AdminController::class, 'konfirmasi'])->name('admin.confirm');
+    Route::get('/admin/register', [AdminController::class, 'register'])->name('register.admin');
+    Route::get('/admin/tracking', [AdminController::class, 'track'])->name('tracking.admin');
+    Route::post('/admin/tracking', [AdminController::class, 'track_post'])->name('admin.tracking');
+
 });
 // // ============================================================================================================================================
 // //=====================TEKNISI=================================================================================
@@ -55,16 +49,16 @@ Route::post('/teknisi/login', [TeknisiLoginController::class, 'login'])->name('t
 Route::post('/teknisi/logout', [TeknisiLoginController::class, 'logout'])->name('teknisi.logout');
 //Admin Home page after login
 Route::group(['middleware'=>'teknisi'], function() {
-    Route::get('/teknisi/home', [PagesController::class, 'index']);
+    Route::get('/teknisi/home', [TeknisiController::class, 'home'])->name('dashboard.teknisi');
 });
 // ============================================================================================================================================
 // =====================USER=================================================================================
 // ============================================================================================================================================
 
 
-Route::get('/login', [UserLoginController::class, 'showLoginForm'])->name('user.login');
-Route::post('/login', [UserLoginController::class, 'login'])->name('user.login.post');
-Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
+Route::get('/user/login', [UserLoginController::class, 'showLoginForm'])->name('user.login');
+Route::post('/user/login', [UserLoginController::class, 'login'])->name('user.login.post');
+Route::post('/user/logout', [UserLoginController::class, 'logout'])->name('user.logout');
 //Admin Home page after login
 Route::group(['middleware'=>'user'], function() {
     Route::get('/', [UserController::class, 'index'])->name('home');

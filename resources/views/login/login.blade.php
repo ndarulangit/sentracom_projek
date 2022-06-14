@@ -29,23 +29,23 @@
           <!--*******************
           Preloader end
           ********************-->
-                    <div class="authincation h-100">
-                        <div class="container h-100">
-                            <div class="row justify-content-center h-100 align-items-center">
+        <div class="authincation h-100">
+            <div class="container h-100">
+                <div class="row justify-content-center h-100 align-items-center">
                     <div class="col-md-6 shadow-lg p-3 mb-5 bg-white">
                         <div class="authincation-content">
                             <div class="row no-gutters">
                                 <div class="col-xl-12">
                                     <div class="auth-form">
                                         <div class="text-center mb-3">
-                                            <a href="{{url('/')}}"><img src="{{asset('assets/images/logo-full.png')}}" alt=""></a>
+                                        <a href="{{url('/')}}"><img src="{{asset('assets/images/logo-full.png')}}" alt=""></a>
                                         </div>
                                         <h4 class="text-center mb-4 text-white">Masuk Sebagai</h4>
-                                        <form action="{{url('/login.step')}}" method="get">
+                                        <form action="{{route('login.step')}}" method="post">
                                             @csrf
                                             <div class="form-group">
                                                 <select id="single-select" name="select">
-                                                    <option value=" " disabled selected>Masuk Sebagai</option>
+                                                    <option value="" disabled selected>Masuk Sebagai</option>
                                                     <option value="AL">Admin</option>
                                                     <option value="WY">Teknisi</option>
                                                 </select>

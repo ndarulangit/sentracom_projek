@@ -36,7 +36,7 @@
                         <div class="authincation-content">
                             <div class="row no-gutters">
                                 <div class="col-xl-12 mt-2">
-                                <a class="p-3 text-light" href="#">back</a>
+                                <a class="p-3 text-light" href="{{route('login')}}">back</a>
                                     <div class="auth-form">
                                         <div class="text-center mb-2">
                                             <a href="{{url('/')}}"><img src="{{asset('assets/images/logo-full.png')}}" alt=""></a>
@@ -64,6 +64,7 @@
             </div>
         </div>
     </div>
+    @include('sweetalert::alert')
     
     <script src="{{asset('assets/vendor/global/global.min.js')}}"></script>
     <script src="{{asset('assets/js/custom.min.js')}}"></script>

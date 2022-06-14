@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Validasi extends Model
 {
     protected $fillable =[
-        'bukti', 'order_id', 'total'
+        'user_id', 'bukti', 'order_id', 'total'
     ];
 }

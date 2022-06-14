@@ -36,7 +36,7 @@
                         <div class="authincation-content">
                             <div class="row no-gutters">
                                 <div class="col-xl-12 mt-2">
-                                <a class="p-3 text-light" href="#">back</a>
+                                <a class="p-3 text-light" href="<?php echo e(route('login')); ?>">back</a>
                                     <div class="auth-form">
                                         <div class="text-center mb-2">
                                             <a href="<?php echo e(url('/')); ?>"><img src="<?php echo e(asset('assets/images/logo-full.png')); ?>" alt=""></a>
@@ -64,6 +64,7 @@
             </div>
         </div>
     </div>
+    <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     
     <script src="<?php echo e(asset('assets/vendor/global/global.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/custom.min.js')); ?>"></script>

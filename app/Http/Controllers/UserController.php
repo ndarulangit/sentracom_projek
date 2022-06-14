@@ -72,15 +72,23 @@ class UserController extends Controller
         return view('users.invoice', compact('inv'));
     }
     public function invoice_post(Request $request, $total){
-        // $bukti = $request->get('bukti');
         $vali = $request->get('order');
         $a = [];
         if (!$vali) {
             DB::table('invoices')->truncate();
+            Alert::error('Gagal', 'Orderan gagal di checkout');
+            return redirect()->route('cekot.sp');
         } else {
+            if (!($request->file('bukti'))) {
+                Alert::warning('Gagal', 'Bukti transfer belum diunggah');
+                return redirect()->route('user.invoice');
+            }
+            else{
+            $file = $request->file('bukti');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('image'), $filename);
             $invo = DB::table('invoices')->get();
             for ($i=0; $i <count($invo) ; $i++) { 
-                # code...
                 $jml = DB::table('orders')->select('jumlah') 
                 ->where('id', $invo[$i]->order_id)
                 ->get();
@@ -93,21 +101,19 @@ class UserController extends Controller
                 ]);
                 array_push($a, $invo[$i]->order_id);
             }
+
             $validasi = new Validasi;
-            $validasi->bukti = $request->get('bukti');
-            $validasi->order_id = implode(",", $a);
-            $validasi->total = $total;
+            $validasi->user_id = collect(Auth::guard('user')->user())['id'];
+            $validasi->bukti = $filename;
+            $validasi->order_id = implode(" ", $a);
+            $validasi->total = $total+14000;
             $validasi->save();
             DB::table('invoices')->truncate();
-        }
-        // dd($vali);
-        // if ($_POST('order')) {
-        //     DB::table('invoices')->truncate();
-        // }elseif ($_POST('cancel')) {
-        //     DB::table('invoices')->truncate();
-        // }
-        // return redirect()->route('cekot.sp');
 
+            Alert::success('Berhasil','Orderan sedang divalidasi');
+            return redirect()->route('cekot.sp');
+            }
+        }
     }
     public function checkout_sv(){
         $user = Auth::guard('user')->user();
@@ -118,7 +124,6 @@ class UserController extends Controller
          ->join('users', 'users.id', '=', 'services.user_id')
          ->where('services.user_id', '=', $user['id'])
         ->orderBy('services.created_at', 'DESC')->get();
-        // dd($sv);
         return view('users.checkout_sv', compact('sv'));
     }
     public function checkout_sp(){
@@ -130,9 +135,17 @@ class UserController extends Controller
          ->join('spareparts', 'spareparts.id','=','orders.sparepart_id')
          ->join('users', 'users.id', '=', 'orders.user_id')
          ->where('orders.user_id', '=', $user['id'])
+         ->where('status', 'pending')
         ->orderBy('orders.created_at', 'DESC')->get();
-        // dd($sp);
-        return view('users.checkout_sp', compact('sp'));
+        $sp1 = DB::table('orders')
+        ->select( 'orders.id', 'orders.status', 'orders.jumlah', 'spareparts.nama', 'spareparts.merek', 'spareparts.harga',
+         'users.name', 'users.email', 'users.alamat')
+         ->join('spareparts', 'spareparts.id','=','orders.sparepart_id')
+         ->join('users', 'users.id', '=', 'orders.user_id')
+         ->where('orders.user_id', '=', $user['id'])
+         ->where('status', 'NOT LIKE', 'pending')
+        ->orderBy('orders.created_at', 'DESC')->get();
+        return view('users.checkout_sp', compact('sp', 'sp1'));
     }
     public function history(){
         return view('users.track');
@@ -151,10 +164,9 @@ class UserController extends Controller
             return redirect()->route('user.invoice');
        }
        else{
+        Alert::warning('Gagal', 'Anda belum memilih orderan untuk diproses');
         return redirect()->route('cekot.sp');
        }
-    //    dd($us['id']);
-        // return view('users.invoice');
     }
     public function profile(){
         $client = Auth::guard('user')->user();

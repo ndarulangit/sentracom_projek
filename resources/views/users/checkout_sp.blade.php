@@ -12,10 +12,9 @@
 <div class="dropdown-menu dropdown-menu-right">
 <form action="{{route ('user.logout')}}" method="post">
     @csrf
-<a href="{{route ('user.logout')}}" class="dropdown-item ai-icon">
+<button type="submit" class="dropdown-item ai-icon">
 <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 <span class="ml-2">Logout </span>
-</a>
 </form>
 </div>
 </li>
@@ -28,6 +27,16 @@
         <li><a href="{{url('user/checkout_sv')}}">Service</a></li>
         <li><a href="{{url('user/checkout_sp')}}">Sparepart</a></li>
     </ul>
+</li>
+@endsection
+@section('dahsboard_nav_profile')
+<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+    <i class="flaticon-381-layer-1"></i>
+    <span class="nav-text">Users</span>
+</a>
+<ul aria-expanded="false">
+    <li><a href="{{url('user/profile')}}">Profile</a></li>
+</ul>
 </li>
 @endsection
 @section('content')
@@ -95,11 +104,101 @@
                                     </div>
                                     <div class="tab-pane fade" id="profile1">
                                         <div class="pt-4">
-                                            <h4>This is profile title</h4>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.
-                                            </p>
+                                            <div class="col-xl-12">
+                                                <!-- Default accordion -->
+                                                <div id="accordion-one" class="accordion accordion-primary">
+                                                    <div class="accordion__item">
+                                                        <table>
+                                                        @foreach($sp1 as $track)
+                                                        <tr>
+                                                        <div class="accordion__header collapsed rounded-lg" data-toggle="collapse" data-target="#default_{{$track->id}}">
+                                                            <span class="accordion__header--text">{{$track->nama}} {{$track->merek}}</span>
+                                                            <span class="accordion__header--indicator"></span>
+                                                        </div>
+                                                        <div id="default_{{$track->id}}" class="collapse accordion__body" data-parent="#accordion-one">
+                                                            <div class="accordion__body--text">
+                                                                <div id="DZ_W_TimeLine11" class="widget-timeline dz-scroll style-1 height370">
+                                                                    <ul class="timeline">
+                                                                        <li>
+                                                                            <div class="timeline-badge dark"></div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">Pending</h4>
+                                                                                <p>Pesanan berhasil dicheckout</p>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="timeline-badge info">
+                                                                            </div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">Process</h4>
+                                                                                <p>Pesanan berhasil diproses</p>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="timeline-badge danger">
+                                                                            </div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">Validate</h4>
+                                                                                <p>Pembayaran sedang divalidasi</p>
+                                                                            </a>
+                                                                        </li>
+                                                                        @if($track->status == 'confirm')
+                                                                        <li>
+                                                                            <div class="timeline-badge success">
+                                                                            </div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">Validation Complete</h4>
+                                                                            </a>
+                                                                        </li>
+                                                                        @elseif($track->status == 'send')
+                                                                        <li>
+                                                                            <div class="timeline-badge success">
+                                                                            </div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">Validation Complete</h4>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="timeline-badge warning">
+                                                                            </div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">On the way</h4>
+                                                                            </a>
+                                                                        </li>
+                                                                        @elseif($track->status == 'complete')
+                                                                        <li>
+                                                                            <div class="timeline-badge success">
+                                                                            </div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">Validation Complete</h4>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="timeline-badge warning">
+                                                                            </div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">On the way</h4>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="timeline-badge dark">
+                                                                            </div>
+                                                                            <a class="timeline-panel text-muted">
+                                                                                <h4 class="mb-0">Complete</h4>
+                                                                            </a>
+                                                                        </li>
+                                                                        @endif
+                                                                    </ul>
+                                                                </div>                                                            
+                                                            </div>
+                                                        </div>
+                                                        </tr>
+                                                        <br>
+                                                        @endforeach
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -113,5 +212,6 @@
         <!--**********************************
             Content body end
         ***********************************-->
+        @include('sweetalert::alert')
         
 @endsection

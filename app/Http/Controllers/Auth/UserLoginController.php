@@ -8,28 +8,21 @@ use App\Http\Controllers\Controller;
 // use \Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Model\User;
-use Alert;
-
+use RealRashid\SweetAlert\Facades\Alert ;
 
 class UserLoginController extends Controller
 {
-
-    // use AuthenticatesUsers;
-    
-
-    // protected $redirectTo = '/';
 
     public function __construct()
     {
       $this->middleware('guest')->except('logout');
     }
-
-    // public function guard()
-    // {
-    //  return Auth::guard('user');
-    // }
     public function showLoginForm()
     {
+        if (Auth::guard('user')->user()) {
+            # code...
+            return redirect()->route('home');
+        }
         return view('users.loginuser');
     }
     public function login(Request $request)
@@ -56,6 +49,6 @@ class UserLoginController extends Controller
  
         request()->session()->regenerateToken();
  
-        return redirect('/login');
+        return redirect()->route('user.login');
     }
  }

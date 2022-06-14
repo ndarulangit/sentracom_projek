@@ -98,14 +98,7 @@
 						@yield('dashboard_nav')
 						</ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-381-layer-1"></i>
-							<span class="nav-text">Users</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{url('user/profile')}}">Profile</a></li>
-                        </ul>
-                    </li>
+                    @yield('dahsboard_nav_profile')
                 </ul>
 				<div class="copyright">
 					<p><strong>Sentracom Service Computer</strong> © 2021 All Rights Reserved</p>
