@@ -65,6 +65,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#profile1">Tracking</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#profile2">Ordered</a>
+                                    </li>
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="home1" role="tabpanel">
@@ -108,10 +111,11 @@
                                         <div class="pt-4">
                                             <div class="col-xl-12">
                                                 <!-- Default accordion -->
+                                                <?php $__currentLoopData = $sp1; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $track): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($track->status != 'complete'&& $track->status != 'cancel'): ?>
                                                 <div id="accordion-one" class="accordion accordion-primary">
                                                     <div class="accordion__item">
                                                         <table>
-                                                        <?php $__currentLoopData = $sp1; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $track): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                         <tr>
                                                         <div class="accordion__header collapsed rounded-lg" data-toggle="collapse" data-target="#default_<?php echo e($track->id); ?>">
                                                             <span class="accordion__header--text"><?php echo e($track->nama); ?> <?php echo e($track->merek); ?></span>
@@ -150,6 +154,7 @@
                                                                             </div>
                                                                             <a class="timeline-panel text-muted">
                                                                                 <h4 class="mb-0">Validation Complete</h4>
+                                                                                <p>Pembayaran anda tervalidasi</p>
                                                                             </a>
                                                                         </li>
                                                                         <?php elseif($track->status == 'send'): ?>
@@ -158,35 +163,15 @@
                                                                             </div>
                                                                             <a class="timeline-panel text-muted">
                                                                                 <h4 class="mb-0">Validation Complete</h4>
+                                                                                <p>Pembayaran anda tervalidasi</p>
                                                                             </a>
                                                                         </li>
                                                                         <li>
                                                                             <div class="timeline-badge warning">
                                                                             </div>
                                                                             <a class="timeline-panel text-muted">
-                                                                                <h4 class="mb-0">On the way</h4>
-                                                                            </a>
-                                                                        </li>
-                                                                        <?php elseif($track->status == 'complete'): ?>
-                                                                        <li>
-                                                                            <div class="timeline-badge success">
-                                                                            </div>
-                                                                            <a class="timeline-panel text-muted">
-                                                                                <h4 class="mb-0">Validation Complete</h4>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="timeline-badge warning">
-                                                                            </div>
-                                                                            <a class="timeline-panel text-muted">
-                                                                                <h4 class="mb-0">On the way</h4>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="timeline-badge dark">
-                                                                            </div>
-                                                                            <a class="timeline-panel text-muted">
-                                                                                <h4 class="mb-0">Complete</h4>
+                                                                                <h4 class="mb-0">Sending</h4>
+                                                                                <p>Barang sedang dalam pengiriman</p>
                                                                             </a>
                                                                         </li>
                                                                         <?php endif; ?>
@@ -195,15 +180,53 @@
                                                             </div>
                                                         </div>
                                                         </tr>
-                                                        <br>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                        </table>
-                                                    </div>
+                                                    </table>
                                                 </div>
+                                            </div>
+                                            <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                    <div class="tab-pane fade" id="profile2">
+                                        <div class="pt-4">
+                                            <div class="col-xl-12">
+                                            <table id="example5" class="display min-w850">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $__currentLoopData = $sp1; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $od): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($od->status == 'complete' || $od->status == 'cancel'): ?>
+                                            <tr>
+                                                <td>#</td>
+                                                <td><?php echo e($od->nama); ?> <?php echo e($od->merek); ?></td>
+                                                <td>
+                                                    <?php if($od->status == 'cancel'): ?>
+                                                    <span class="badge light badge-dark">
+                                                        <i class="fa fa-circle text-dark mr-1"></i>
+                                                        Canceled
+                                                    </span>
+                                                    </td>
+                                                    <?php elseif($od->status == 'complete'): ?>
+                                                    <span class="badge light badge-success">
+                                                        <i class="fa fa-circle text-success mr-1"></i>
+                                                        Completed
+                                                    </span>
+                                                    </td>
+                                                        <?php endif; ?>
+                                            </tr>
+                                            <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </tbody>
+                                        </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

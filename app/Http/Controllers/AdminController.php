@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\SparepartExport;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert ;
 
 class AdminController extends Controller
 {
@@ -11,10 +14,74 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
     public function database(){
-        return view('admin.datasp');
+        $sp =DB::table('spareparts')->select('*')->get();
+        return view('admin.datasp', compact('sp'));
     }
     public function history(){
-        return view('admin.history');
+        $itm = DB::table('orders')
+        ->select( 'orders.id', 'spareparts.nama', 'spareparts.merek', 'orders.created_at', 'orders.status',
+         'users.name')
+         ->join('spareparts', 'spareparts.id','=','orders.sparepart_id')
+         ->join('users', 'users.id', '=', 'orders.user_id')
+         ->whereIn('orders.status', ['cancel', 'complete']);
+         $sv = DB::table('services')
+         ->select( 'services.id', 'services.code', 'services.type', 'services.created_at', 'services.status',
+          'users.name as user')
+          ->join('users', 'users.id', '=', 'services.user_id');
+          $all = $itm->union($sv)->get();
+          $t = [];
+          for ($i=0; $i <count($all) ; $i++) { 
+            # code...
+            $a = date('Y', strtotime($all[$i]->created_at));
+            array_push($t, $a);
+          }
+          $t = array_unique($t);
+        return view('admin.history', compact('all', 't'));
+    }
+    public function filter(Request $request){
+        if ($request->get('export')) {
+            # code...
+            if($request->get('tahun')&&$request->get('bulan')){
+            return $this->export($request->get('tahun'), $request->get('bulan'));
+        }
+            else{
+             Alert::error('Gagal!!', 'Lengapi Kolom Filter Sebelum Export');
+            }
+            return redirect()->route('history.admin');
+        }elseif ($request->get('filter')) {
+            # code...
+            if($request->get('tahun')&&$request->get('bulan')){
+            $itm = DB::table('orders')
+            ->select( 'orders.id', 'spareparts.nama', 'spareparts.merek', 'orders.created_at', 'orders.status',
+            'users.name')
+            ->join('spareparts', 'spareparts.id','=','orders.sparepart_id')
+            ->join('users', 'users.id', '=', 'orders.user_id')
+            ->whereIn('orders.status', ['cancel', 'complete'])
+            ->whereYear('orders.created_at', $request->get('tahun'))
+            ->whereMonth('orders.created_at', $request->get('bulan'));
+            $sv = DB::table('services')
+            ->select( 'services.id', 'services.code', 'services.type', 'services.created_at', 'services.status',
+            'users.name as user')
+            ->join('users', 'users.id', '=', 'services.user_id')
+            ->whereYear('services.created_at', $request->get('tahun'))
+            ->whereMonth('services.created_at', $request->get('bulan'));
+            $all = $itm->union($sv)->get();
+            $t = [];
+            for ($i=0; $i <count($all) ; $i++) { 
+                # code...
+                $a = date('Y', strtotime($all[$i]->created_at));
+                array_push($t, $a);
+            }
+            $t = array_unique($t);
+            return view('admin.history', compact('all', 't'));
+            }else{
+                return redirect()->route('history.admin');
+            }
+
+        }
+    }
+    public function export($x, $y){
+        return (new SparepartExport($x, $y))->download('Laporan.xlsx');
     }
     public function orderan(){
         // $y = DB::table('validasis')->select('order_id')->where('id', 3)->get();
@@ -38,10 +105,10 @@ class AdminController extends Controller
                 ->where('orders.id', $order_id[$i])->increment('spareparts.jumlah', $jml['0']->jumlah);
                 DB::table('orders')
                 ->where('id', $order_id[$i])->update([
-                    "status" => "canceled"
+                    "status" => "cancel"
                 ]);
             DB::table('validasis')->where('id', $request->get('dc'))->delete();
-            } return redirect()->route('orderan.admin');
+            } return redirect()->route('confirm.admin');
         }else{
             $order_id = DB::table('validasis')->select('order_id')->where('id', $request->get('acc'))->get();
             $order_id = explode(" ", $order_id[0]->order_id);
@@ -53,7 +120,7 @@ class AdminController extends Controller
                     "status" => "confirm"
                 ]);
             DB::table('validasis')->where('id', $request->get('acc'))->delete();
-            }return redirect()->route('orderan.admin');
+            }return redirect()->route('confirm.admin');
         }
     }
     public function register(){
@@ -65,7 +132,8 @@ class AdminController extends Controller
          'users.name', 'users.email', 'users.alamat')
          ->join('spareparts', 'spareparts.id','=','orders.sparepart_id')
          ->join('users', 'users.id', '=', 'orders.user_id')
-         ->whereIn('status', ['confirm', 'cancel', 'complete', 'send'])->get();
+         ->whereIn('orders.status', ['confirm', 'cancel', 'complete', 'send'])
+         ->get();
         //  dd($itm);
         return view('admin.tracking', compact('itm'));
     }

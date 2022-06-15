@@ -50,68 +50,57 @@
 					</ol>
                 </div>
                 <!-- row -->
-				<div class="d-flex flex-wrap mb-2 align-items-center justify-content-between">
-									<div class="d-flex mb-3">
-										<select class="form-control style-2 default-select mr-3">
-											<option selected disabled>Edit</option>
-											<option>Update</option>
-											<option>Delete</option>
-										</select>
-										<a href="javascript:void(0)" class="btn btn-primary text-nowrap"><i class="fa fa-file-text scale5 mr-3" aria-hidden="true"></i>Tambah</a>
-									</div>
-								</div>
-                
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Data Sparepart</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-responsive-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Name</th>
-                                                <th>Status</th>
-                                                <th>Date</th>
-                                                <th>Price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>1</th>
-                                                <td>Kolor Tea Shirt For Man</td>
-                                                <td><span class="badge badge-primary light">Sale</span>
-                                                </td>
-                                                <td>January 22</td>
-                                                <td class="color-primary">$21.56</td>
-                                            </tr>
-                                            <tr>
-                                                <th>2</th>
-                                                <td>Kolor Tea Shirt For Women</td>
-                                                <td><span class="badge badge-success">Tax</span>
-                                                </td>
-                                                <td>January 30</td>
-                                                <td class="color-success">$55.32</td>
-                                            </tr>
-                                            <tr>
-                                                <th>3</th>
-                                                <td>Blue Backpack For Baby</td>
-                                                <td><span class="badge badge-danger light">Extended</span>
-                                                </td>
-                                                <td>January 25</td>
-                                                <td class="color-danger">$14.85</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Data Sparepart</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <form action="{{route('admin.tracking')}}" method="post">
+                            @csrf
+                            <table id="example5" class="display min-w850">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>Merek</th>
+                                        <th>Harga</th>
+                                        <th>Jumlah</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    @foreach($sp as $itm)
+                                    <td>{{$itm->id}}</td>
+                                    <td>{{$itm->nama}}</td>
+                                    <td>{{$itm->merek}}</td>
+                                    <td>{{$itm->harga}}</td>
+                                    <td>{{$itm->jumlah}}</td>
+                                    <td>
+                                        <div class="dropdown ml-auto text-right">
+                                            <div class="btn-link" data-toggle="dropdown">
+                                                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" value="" type="submit" name="send" >Send</button>
+                                            <button class="dropdown-item" value="" type="submit" name="complete" >Complete</button>
+                                            <button class="dropdown-item" value="" type="submit" name="cancel" >Cancel</button>
+                                            </div>
+                                        </div>
+                                    </td>												
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            </form>
                         </div>
-                        <!-- /# card -->
                     </div>
                 </div>
+            </div>
+            </div>
             </div>
         </div>
         <!--**********************************

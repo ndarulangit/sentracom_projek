@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\TeknisiLoginController;
@@ -32,6 +33,8 @@ Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin
 Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 //Admin Home page after login
 Route::group(['middleware'=>'admin'], function() {
+    Route::get('/admin/download', [AdminController::class, 'export']);
+    Route::post('/admin/filter', [AdminController::class, 'filter'])->name('filter.admin');
     Route::get('/admin/dashboard', [AdminController::class, 'database'])->name('dashboard.admin');
     Route::get('/admin/history', [AdminController::class, 'history'])->name('history.admin');
     Route::get('/admin/confirm', [AdminController::class, 'orderan'])->name('confirm.admin');
