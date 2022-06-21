@@ -53,47 +53,92 @@
 					</ol>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <form action="<?php echo e(route('user.invoice')); ?>" enctype="multipart/form-data" method="post">
-                                        <?php echo csrf_field(); ?>
-                                    <table class="table table-sm mb-0 table-responsive-lg text-black">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-middle">Identitas</th>
-                                                <th class="align-middle pr-2">Tanggal</th>
-                                                <th class="align-middle minw100">Dikirim ke</th>
-                                                <th class="align-middle minw100">Keterangan</th>
-                                                <th class="align-middle text-center">Status</th>
-                                                <th class="align-middle text-center">Harga</th>
-                                                <th class="no-sort"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="orders">
-                                            <?php $__currentLoopData = $sv; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <tr class="btn-reveal-trigger">
-                                                    <td class="py-2">
-                                                        <strong class="text-black" style="font-size : 20px;"><?php echo e($data->name); ?></strong><br /><p><?php echo e($data->email); ?><br><?php echo e($data->code); ?></p></td>
-                                                    <td class="py-2"><?php echo e($data->booking); ?></td>
-                                                    <td class="py-2"><?php echo e($data->alamat); ?></td>
-                                                    <td class="py-2"><?php echo e($data->ket); ?></td>
-                                                    <td class="py-2 text-center"><span class="badge badge-secondary"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                    <td class="py-2 text-center"><?php echo e($data->amount); ?>
+                                <!-- Nav tabs -->
+                                <div class="custom-tab-1">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#home1">Checkout</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#profile2">Ordered</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="home1" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <form action="<?php echo e(route('user.sv_order')); ?>" enctype="multipart/form-data" method="post">
+                                                    <?php echo csrf_field(); ?>
+                                                <table class="table table-sm mb-0 table-responsive-lg text-black">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="align-middle">Identitas</th>
+                                                            <th class="align-middle pr-2">Tanggal</th>
+                                                            <th class="align-middle minw100">Dikirim ke</th>
+                                                            <th class="align-middle minw100">Keterangan</th>
+                                                            <th class="align-middle text-center">Status</th>
+                                                            <th class="align-middle text-center">Harga</th>
+                                                            <th class="no-sort"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="orders">
+                                                        <?php $__currentLoopData = $sv; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <tr class="btn-reveal-trigger">
+                                                                <td class="py-2">
+                                                                    <strong class="text-black" style="font-size : 20px;"><?php echo e($data->name); ?></strong><br /><p><?php echo e($data->email); ?><br><?php echo e($data->code); ?></p></td>
+                                                                <td class="py-2"><?php echo e($data->booking); ?></td>
+                                                                <td class="py-2"><?php echo e($data->alamat); ?></td>
+                                                                <td class="py-2"><?php echo e($data->ket); ?></td>
+                                                                <?php if($data->status == 'pending'): ?>
+                                                                <td class="py-2 text-center"><span class="badge badge-secondary"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
 
-                                                    </td>
-                                                   <td> <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
-                                                    <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="order-dropdown-0">
-                                                    <div class="py-2"><a class="dropdown-item text-success" href="<?php echo e(route('user.invoice')); ?>">Invoice</a>
-                                                            <div class="dropdown-divider"></div><a class="dropdown-item text-warning" href="<?php echo e(route('user.track')); ?>">Tracking</a>
-                                                        </div>
-                                                    </div>
-                                                </div></td>
-                                            </tr>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </tbody>
-                                    </table>
+                                                                <?php elseif($data->status == 'checking'): ?>
+                                                                <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
+
+                                                                <?php elseif($data->status == 'in process'): ?>
+                                                                <td class="py-2 text-center"><span class="badge badge-info"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
+
+                                                                <?php elseif($data->status == 'validate'): ?>
+                                                                <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
+
+                                                                <?php elseif($data->status == 'send'): ?>
+                                                                <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
+
+                                                                <?php elseif($data->status == 'confirm'): ?>
+                                                                <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
+
+                                                                <?php elseif($data->status == 'finish'): ?>
+                                                                <td class="py-2 text-center"><span class="badge badge-success"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
+
+                                                                </td>
+                                                                <td> <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
+                                                                    <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="order-dropdown-0">
+                                                                        <div class="py-2"><button class="dropdown-item text-success" value="<?php echo e($data->id); ?>" type="submit" name="order" >Order</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div></td>
+                                                                <?php endif; ?>
+                                                        </tr>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    </tbody>
+                                                </table>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="profile2">
+                                            <div class="pt-4">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -104,5 +149,7 @@
         <!--**********************************
             Content body end
         ***********************************-->
+        <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('\layout\viewnavbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\sentracom_projek\resources\views/users/checkout_sv.blade.php ENDPATH**/ ?>

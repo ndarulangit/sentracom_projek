@@ -52,7 +52,13 @@ Route::post('/teknisi/login', [TeknisiLoginController::class, 'login'])->name('t
 Route::post('/teknisi/logout', [TeknisiLoginController::class, 'logout'])->name('teknisi.logout');
 //Admin Home page after login
 Route::group(['middleware'=>'teknisi'], function() {
-    Route::get('/teknisi/home', [TeknisiController::class, 'home'])->name('dashboard.teknisi');
+    Route::get('/teknisi/dashboard', [TeknisiController::class, 'datasv'])->name('dashboard.teknisi');
+    Route::post('/teknisi/dashboard', [TeknisiController::class, 'take'])->name('teknisi.take');
+    Route::get('/teknisi/myservice', [TeknisiController::class, 'myservice'])->name('teknisi.myservice');
+    Route::post('/teknisi/myservice', [TeknisiController::class, 'confirm'])->name('teknisi.confirm');
+    Route::get('/teknisi/valid', [TeknisiController::class, 'valid'])->name('teknisi.valid');
+    Route::post('/teknisi/valid', [TeknisiController::class, 'valid_p'])->name('teknisi.valid.post');
+    Route::post('/teknisi/sparepart', [TeknisiController::class, 'sp_p'])->name('teknisi.sp_p');
 });
 // ============================================================================================================================================
 // =====================USER=================================================================================
@@ -71,11 +77,13 @@ Route::group(['middleware'=>'user'], function() {
     Route::post('/user/sparepart', [UserController::class,'sparepart'])->name('user.sp');
     Route::post('/user/sparepart/kirim', [UserController::class,'order'])->name('user.order');
     // Route::post('/user/sparepart/order/{id_s}', [UserController::class,'submit'])->name('user.submit');
-    Route::get('/user/checkout_sv', [UserController::class,'checkout_sv']);
+    Route::get('/user/checkout_sv', [UserController::class,'checkout_sv'])->name('user.cekot.sv');
+    Route::post('/user/checkout_sv', [UserController::class,'sv_order'])->name('user.sv_order');
     Route::get('/user/checkout_sp', [UserController::class,'checkout_sp'])->name('cekot.sp');
     Route::get('/user/history', [UserController::class,'history'])->name('user.track');
     Route::get('/user/invoice', [UserController::class,'invoice'])->name('user.invoice');
     Route::post('/user/invoice/{total}', [UserController::class,'invoice_post'])->name('invoice.post');
+    Route::post('/user/invoice_sv/{total}', [UserController::class,'sv_order_post'])->name('sv_order.post');
     Route::post('/user/checkout_sp/order', [UserController::class,'sp_order'])->name('user.sp.order');
     Route::get('/user/profile', [UserController::class,'profile'])->name('user.profile');
     Route::post('/user/profile/{id}', [UserController::class,'update'])->name('post.edit');

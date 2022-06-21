@@ -16,9 +16,10 @@ class CreateValidasisTable extends Migration
         Schema::create('validasis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('bukti');
-            $table->string('order_id');
-            $table->integer('total');
+            $table->string('bukti')->nullable();
+            $table->string('order_id')->nullable();
+            $table->string('service_id')->nullable();
+            $table->integer('total')->nullable();
             $table->timestamps();
             $table->foreign('user_id')
             ->references('id')->on('users')->onDelete('cascade');

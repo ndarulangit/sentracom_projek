@@ -69,7 +69,70 @@ class UserController extends Controller
         ->join('spareparts', 'spareparts.id', '=', 'orders.sparepart_id')
         ->where('invoices.user_id', collect(Auth::guard('user')->user())['id'])
         ->get();
+        // dd($inv);
         return view('users.invoice', compact('inv'));
+    }
+    public function sv_order(Request $request){
+        if ($request->get('order')) {
+            if (Validasi::where('service_id', $request->get('order'))->get()[0]->order_id != null) {
+                $o = explode(" ", DB::table('validasis')->select('order_id')->where('service_id', $request->get('order'))->get()[0]->order_id);
+                $x = DB::table('orders')->select('orders.created_at', 'orders.user_id', 'orders.id',
+                    'orders.status', 'users.name', 'users.alamat', 'users.email', 'users.nowa', 'orders.jumlah', 
+                    'spareparts.harga', 'spareparts.nama', 'spareparts.merek')
+                    ->join('users', 'users.id', '=', 'orders.user_id')
+                    ->join('spareparts', 'spareparts.id', '=', 'orders.sparepart_id')->whereIn('orders.id', $o)->get();
+                    $y = DB::table('services')->select('services.created_at', 'services.user_id', 'services.id',
+                    'services.status', 'users.name', 'users.alamat', 'users.email', 'users.nowa',
+                    'services.amount', 'services.code', 'services.type')
+                    ->join('users', 'users.id', '=', 'services.user_id')
+                    ->where('services.id', $request->get('order'))->get();
+                    // dd($y);
+                    return view('users.invoice_sv', compact('x', 'y'));
+            }else{
+                // $o = 1;
+                // $x = DB::table('orders')->select('orders.created_at', 'orders.user_id', 'orders.id',
+                //     'orders.status', 'users.name', 'users.alamat', 'users.email', 'users.nowa', 'orders.jumlah', 
+                //     'spareparts.harga', 'spareparts.nama', 'spareparts.merek')
+                //     ->join('users', 'users.id', '=', 'orders.user_id')
+                //     ->join('spareparts', 'spareparts.id', '=', 'orders.sparepart_id')->where('orders.id', $o)->get();
+                    $x = null;
+                    $y = DB::table('services')->select('services.created_at', 'services.user_id', 'services.id',
+                    'services.status', 'users.name', 'users.alamat', 'users.email', 'users.nowa',
+                    'services.amount', 'services.code', 'services.type')
+                    ->join('users', 'users.id', '=', 'services.user_id')
+                    ->where('services.id', $request->get('order'))->get();
+                    // dd($y);
+                    return view('users.invoice_sv', compact('x', 'y'));
+            }
+            
+        }
+    }
+    public function sv_order_post(Request $request, $total){
+        $vali = $request->get('order');
+        if (!$vali) {
+            Alert::error('Gagal', 'Orderan gagal di checkout');
+            return redirect()->route('user.cekot.sv');
+        } else {
+            if (!($request->file('bukti'))) {
+                Alert::warning('Gagal', 'Bukti transfer belum diunggah');
+                return redirect()->route('user.cekot.sv');
+
+            }
+            else{
+            $file = $request->file('bukti');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('image'), $filename);
+            DB::table('validasis')->where('service_id', $request->get('order'))->update([
+                'bukti' => $filename,
+                'total' => $total+14000
+            ]);
+            DB::table('services')->where('id', $request->get('order'))->update([
+                'status' => 'validate'
+            ]);
+            Alert::success('Berhasil','Orderan sedang divalidasi');
+            return redirect()->route('user.cekot.sv');
+            }
+        }
     }
     public function invoice_post(Request $request, $total){
         $vali = $request->get('order');
@@ -123,6 +186,7 @@ class UserController extends Controller
          'users.name', 'users.email', 'users.alamat')
          ->join('users', 'users.id', '=', 'services.user_id')
          ->where('services.user_id', '=', $user['id'])
+         ->whereIn('status', ['pending', 'checking', 'in process', 'validate', 'finish', 'send', 'confirm'])
         ->orderBy('services.created_at', 'DESC')->get();
         return view('users.checkout_sv', compact('sv'));
     }

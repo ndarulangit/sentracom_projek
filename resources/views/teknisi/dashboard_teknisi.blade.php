@@ -21,7 +21,68 @@
 </li>
 @endsection
 @section('dashboard_nav')
-<li><a href="{{url('teknisi/service')}}">Service</a></li>
+<li><a href="{{route('dashboard.teknisi')}}">Service</a></li>
+<li><a href="{{route('teknisi.myservice')}}">My Service</a></li>
+<li><a href="{{route('teknisi.valid')}}">Valid Service</a></li>
 @endsection
 @section('content')
+<div class="content-body">
+        <div class="container-fluid">
+            <div class="page-titles">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Database Sparepart</a></li>
+                </ol>
+            </div>
+            <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Konfirmasi Order</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <form action="{{route('teknisi.take')}}" method="post">
+                            @csrf
+                            <table id="example5" class="display min-w850">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Booking</th>
+                                        <th>Keterangan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($sv as $itm)
+                                    <tr>
+                                        <td>{{$itm->id}}</td>
+                                        <td>{{$itm->name}}</td>
+                                        <td>{{$itm->alamat}}</td>
+                                        <td>{{$itm->booking}}</td>
+                                        <td>{{$itm->code}} ({{$itm->type}} )<p>{{$itm->ket}}</p></td>
+                                        <td>
+                                            <div class="dropdown ml-auto text-right">
+                                                <div class="btn-link" data-toggle="dropdown">
+                                                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
+                                                </div>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <button class="dropdown-item" value="{{$itm->id}}" type="submit" name="take" >Take Order</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>											
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
 @endsection

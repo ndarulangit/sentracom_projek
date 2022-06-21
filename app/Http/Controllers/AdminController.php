@@ -87,7 +87,9 @@ class AdminController extends Controller
         // $y = DB::table('validasis')->select('order_id')->where('id', 3)->get();
         $x = DB::table('validasis')->select('validasis.id', 'users.name', 'users.alamat', 
         'validasis.order_id', 'validasis.total', 'validasis.bukti')
-        ->join('users', 'users.id', '=', 'validasis.user_id')->get();
+        ->join('users', 'users.id', '=', 'validasis.user_id')
+        ->whereNull('validasis.service_id')
+        ->get();
         return view('admin.orderan', compact('x'));
     }
     public function konfirmasi(Request $request){

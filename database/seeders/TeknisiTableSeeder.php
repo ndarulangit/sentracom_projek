@@ -15,7 +15,7 @@ class TeknisiTableSeeder extends Seeder
     {
         \App\Models\Teknisi::create([
             'name'    => 'teknisi',
-            'email'    => 'teknisi123@gmail.com',
-            'password'    => bcrypt('teknisi123')
+            'email'    => 'teknisi23@gmail.com',
+            'password'    => bcrypt('teknisi23')
     ]);    }
 }
