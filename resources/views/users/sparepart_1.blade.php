@@ -89,20 +89,20 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <form action="{{route('user.order')}}" method="post">
+                                    <form action="{{route('user.order')}}" method="post">
                                             @csrf
-                                        <table class="table table-striped">
+                                        <table id="example5" class="display min-w850">
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Stock</th>
+                                                    <th>Stok</th>
                                                     <th>Nama</th>
                                                     <th>Merek</th>
                                                     <th>Harga</th>
                                                     <th>Jumlah</th>
                                                 </tr>
                                             </thead>
-                                                <tbody>
+                                            <tbody>
                                                     @foreach($fltr2 as $itm)
                                                     <tr>
                                                     <th><input type="checkbox" name="subpro[]" value={{$itm->id}}></th>

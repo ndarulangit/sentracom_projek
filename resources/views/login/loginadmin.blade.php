@@ -39,7 +39,7 @@
                                 <a class="p-3 text-light" href="{{route('login')}}">back</a>
                                     <div class="auth-form">
                                         <div class="text-center mb-2">
-                                            <a href="{{url('/')}}"><img src="{{asset('assets/images/logo-full.png')}}" alt=""></a>
+                                            <a href="{{url('/')}}"><img src="{{asset('assets/images/sentra.png')}}" width="200" alt=""></a>
                                         </div>
                                         <h4 class="text-center mb-4 text-white">Masuk Sebagai Admin</h4>
                                         <form action="{{route ('admin.login.post')}}" method="post">

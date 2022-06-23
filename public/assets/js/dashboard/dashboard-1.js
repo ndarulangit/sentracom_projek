@@ -7,7 +7,7 @@
 	var screenWidth = $(window).width();
 	var donutChart = function(){
 		var options = {
-          series: [45, 30, 25],
+          series: [datasp, datasv],
           chart: {
           type: 'donut',
         },
@@ -38,7 +38,7 @@
                 colors: ["#fff"],
               }
 			},
-		  colors:['#214BB8','#45ADDA','#FE634E']
+		  colors:['#214BB8','#45ADDA']
         /* responsive: [{
           breakpoint: 480,
           options: {

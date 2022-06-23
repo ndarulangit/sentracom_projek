@@ -90,20 +90,20 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <form action="<?php echo e(route('user.order')); ?>" method="post">
+                                    <form action="<?php echo e(route('user.order')); ?>" method="post">
                                             <?php echo csrf_field(); ?>
-                                        <table class="table table-striped">
+                                        <table id="example5" class="display min-w850">
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Stock</th>
+                                                    <th>Stok</th>
                                                     <th>Nama</th>
                                                     <th>Merek</th>
                                                     <th>Harga</th>
                                                     <th>Jumlah</th>
                                                 </tr>
                                             </thead>
-                                                <tbody>
+                                            <tbody>
                                                     <?php $__currentLoopData = $fltr2; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <tr>
                                                     <th><input type="checkbox" name="subpro[]" value=<?php echo e($itm->id); ?>></th>

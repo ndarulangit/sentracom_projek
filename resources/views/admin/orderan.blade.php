@@ -2,7 +2,7 @@
 @section('Judul Halaman', 'Sentracom')
 @section('Header', 'Dashboard')
 @section('logo_nav')
-{{url('admin')}}
+{{route('dashboard.admin')}}
 @endsection
 @section('header_set')
 <li class="nav-item dropdown header-profile">
@@ -21,7 +21,7 @@
 </li>
 @endsection
 @section('dashboard_nav')
-<li><a href="{{route('dashboard.admin')}}">Database Sparepart</a></li>
+<li><a href="{{route('data.admin')}}">Database Sparepart</a></li>
 <li><a href="{{route('history.admin')}}">Catatan/History</a></li>
 <li><a href="{{route('confirm.admin')}}">Konfirmasi Orderan</a></li>
 <li><a href="{{route('tracking.admin')}}">Tracking Orderan</a></li>

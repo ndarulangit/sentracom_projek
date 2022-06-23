@@ -56,7 +56,7 @@ class TeknisiController extends Controller
             if (Validasi::where('service_id', $request->get('cf'))->get()[0]->order_id != null) {
                 # code...
                 $o = explode(" ", DB::table('validasis')->select('order_id')->where('service_id', $request->get('cf'))->get()[0]->order_id);
-                for ($i=0; $i <$o ; $i++) { 
+                for ($i=0; $i <count($o) ; $i++) { 
                     # code...
                     DB::table('orders')->where('id', $o[$i])->update([
                         'status' => 'confirm'
@@ -78,7 +78,7 @@ class TeknisiController extends Controller
             if (Validasi::where('service_id', $request->get('sd'))->get()[0]->order_id != null) {
                 # code...
                 $o = explode(" ", DB::table('validasis')->select('order_id')->where('service_id', $request->get('sd'))->get()[0]->order_id);
-                for ($i=0; $i <$o ; $i++) { 
+                for ($i=0; $i <count($o) ; $i++) { 
                     # code...
                     DB::table('orders')->where('id', $o[$i])->update([
                         'status' => 'send'
@@ -100,7 +100,7 @@ class TeknisiController extends Controller
             if (Validasi::where('service_id', $request->get('cp'))->get()[0]->order_id != null) {
                 # code...
                 $o = explode(" ", DB::table('validasis')->select('order_id')->where('service_id', $request->get('cp'))->get()[0]->order_id);
-                for ($i=0; $i <$o ; $i++) { 
+                for ($i=0; $i <count($o) ; $i++) { 
                     # code...
                     DB::table('orders')->where('id', $o[$i])->update([
                         'status' => 'complete'

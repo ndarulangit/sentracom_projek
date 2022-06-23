@@ -2,7 +2,7 @@
 @section('Judul Halaman', 'Sentracom')
 @section('Header', 'Dashboard')
 @section('logo_nav')
-{{url('teknisi')}}
+{{route('dashboard.teknisi')}}
 @endsection
 @section('header_set')
 <li class="nav-item dropdown header-profile">

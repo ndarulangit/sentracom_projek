@@ -2,7 +2,7 @@
 @section('Judul Halaman', 'Sentracom')
 @section('Header', 'Dashboard')
 @section('logo_nav')
-{{url('admin')}}
+{{route('dashboard.admin')}}
 @endsection
 @section('header_set')
 <li class="nav-item dropdown header-profile">
@@ -21,7 +21,7 @@
 </li>
 @endsection
 @section('dashboard_nav')
-<li><a href="{{route('dashboard.admin')}}">Database Sparepart</a></li>
+<li><a href="{{route('data.admin')}}">Database Sparepart</a></li>
 <li><a href="{{route('history.admin')}}">Catatan/History</a></li>
 <li><a href="{{route('confirm.admin')}}">Konfirmasi Orderan</a></li>
 <li><a href="{{route('tracking.admin')}}">Tracking Orderan</a></li>
@@ -38,4 +38,54 @@
 </li>
 @endsection
 @section('content')
+<div class="content-body">
+        <div class="container-fluid">
+            <div class="page-titles">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Database Sparepart</a></li>
+                </ol>
+            </div>
+            <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Daftarkan Teknisi</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{route('admin.regTek')}}" method="post">
+                            @csrf
+                        <div class="row">
+                            <div class="col-lg-9 mb-2">
+                                <div class="form-group">
+                                    <label class="text-label">Nama Lengkap</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Masukkan nama disini" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 mb-2">
+                                <div class="form-group">
+                                    <label class="text-label">Email</label>
+                                    <input type="email" name="email" class="form-control" id="inputGroupPrepend2" aria-describedby="inputGroupPrepend2" placeholder="teknisi@example.com" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 mb-2">
+                                <div class="form-group">
+                                    <label class="text-label">Password</label>
+                                    <input type="text" name="phoneNumber" class="form-control" placeholder="Password" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-9"></div>
+                            <div class="col-lg-3 mb-2">
+                                <button name="daftarkan" type="submit" class="btn btn-lg btn-primary">Daftarkan</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
+@include('sweetalert::alert')
+
 @endsection

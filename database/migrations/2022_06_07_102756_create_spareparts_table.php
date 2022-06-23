@@ -17,6 +17,8 @@ class CreateSparepartsTable extends Migration
             $table->id()->unique()->autoIncrement();
             $table->string('nama');
             $table->string('merek');
+            $table->string('gambar')->nullable();
+            $table->string('deskripsi')->nullable();
             $table->integer('harga');
             $table->integer('jumlah');
             $table->timestamps();

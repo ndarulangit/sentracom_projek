@@ -39,7 +39,7 @@
                                 <a class="p-3 text-light" href="<?php echo e(route('login')); ?>">back</a>
                                     <div class="auth-form">
                                         <div class="text-center mb-2">
-                                            <a href="<?php echo e(url('/')); ?>"><img src="<?php echo e(asset('assets/images/logo-full.png')); ?>" alt=""></a>
+                                            <a href="<?php echo e(url('/')); ?>"><img src="<?php echo e(asset('assets/images/sentra.png')); ?>" width="200" alt=""></a>
                                         </div>
                                         <h4 class="text-center mb-4 text-white">Masuk Sebagai Admin</h4>
                                         <form action="<?php echo e(route ('admin.login.post')); ?>" method="post">

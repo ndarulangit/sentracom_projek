@@ -21,7 +21,7 @@
 </li>
 @endsection
 @section('dashboard_nav')
-<li><a href="{{route('dashboard.admin')}}">Database Sparepart</a></li>
+<li><a href="{{route('data.admin')}}">Database Sparepart</a></li>
 <li><a href="{{route('history.admin')}}">Catatan/History</a></li>
 <li><a href="{{route('confirm.admin')}}">Konfirmasi Orderan</a></li>
 <li><a href="{{route('tracking.admin')}}">Tracking Orderan</a></li>
@@ -54,11 +54,79 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+                        <div class="col-md-8">
                         <h4 class="card-title">Data Sparepart</h4>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2">
+                            <div class="justify-content-end">
+                            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#tambah">Tambah</button>
+                            </div>
+                        </div>
+                        <div class="modal fade bd-example-modal-lg" id="tambah" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit Sparepart</h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{route('admin.updel')}}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                    <div class="row">
+                                        <div class="col-md-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">Nama</label>
+                                                <input type="text" name="namaT" class="form-control" value="Nama" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">Merek</label>
+                                                <input type="text" name="merekT" class="form-control" value="Merek" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">Harga</label>
+                                                <input type="number" name="hargaT" class="form-control" value="Harga" required></input>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">Jumlah</label>
+                                                <input type="number" name="jumlahT" class="form-control" value="Jumlah" required></input>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">Deskripsi</label>
+                                                <textarea class="form-control" name="deskripsiT" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2">
+                                            <div class="form-group">
+                                                <div class="custom-file">
+                                                    <input type="file" name="gambarT" class="custom-file-input">
+                                                    <label class="custom-file-label">Upload Gambar disini</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-danger" type="submit" value="tambah" name="tambah" >Tambah</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>	
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <form action="{{route('admin.tracking')}}" method="post">
+                            <form action="{{route('admin.updel')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <table id="example5" class="display min-w850">
                                 <thead>
@@ -85,12 +153,72 @@
                                                 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
                                             </div>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                            <button class="dropdown-item" value="" type="submit" name="send" >Send</button>
-                                            <button class="dropdown-item" value="" type="submit" name="complete" >Complete</button>
-                                            <button class="dropdown-item" value="" type="submit" name="cancel" >Cancel</button>
+                                            <button class="dropdown-item" type="button" data-toggle="modal" data-target="#test_{{$itm->id}}">Edit</button>
+                                            <button class="dropdown-item" value="{{$itm->id}}" type="submit" name="delete" >Delete</button>
+                                            </form>
                                             </div>
                                         </div>
-                                    </td>												
+                                    </td>	
+                                    <div class="modal fade bd-example-modal-lg" id="test_{{$itm->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Edit Sparepart</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="{{route('admin.updel')}}" method="post" enctype="multipart/form-data">
+                                                    @csrf
+                                                <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2">
+                                                        <div class="form-group">
+                                                            <label class="text-label">Nama</label>
+                                                            <input type="text" name="nama" class="form-control" value="{{$itm->nama}}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <div class="form-group">
+                                                            <label class="text-label">Merek</label>
+                                                            <input type="text" name="merek" class="form-control" value="{{$itm->merek}}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-10 mb-2">
+                                                        <div class="form-group">
+                                                            <label class="text-label">Harga</label>
+                                                            <input type="number" name="harga" class="form-control" value="{{$itm->harga}}" required></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 mb-2">
+                                                        <div class="form-group">
+                                                            <label class="text-label">Jumlah</label>
+                                                            <input type="number" name="jumlah" class="form-control" value="{{$itm->jumlah}}" required></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <div class="form-group">
+                                                            <label class="text-label">Deskripsi</label>
+                                                            <textarea class="form-control" name="deskripsi" rows="5">{{$itm->deskripsi}}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <div class="form-group">
+                                                            <div class="custom-file">
+                                                                <input type="file" name="gambar" class="custom-file-input">
+                                                                <label class="custom-file-label">Upload Gambar disini</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                    <button class="btn btn-danger" value="{{$itm->id}}" type="submit" name="update" >Update</button>
+                                                </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>											
                                 </tr>
                                 @endforeach
                                 </tbody>

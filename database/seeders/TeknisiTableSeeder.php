@@ -17,5 +17,11 @@ class TeknisiTableSeeder extends Seeder
             'name'    => 'teknisi',
             'email'    => 'teknisi23@gmail.com',
             'password'    => bcrypt('teknisi23')
-    ]);    }
+    ],[
+        'name'    => 'teknisi',
+        'email'    => 'teknisi123@gmail.com',
+        'password'    => bcrypt('teknisi123')
+]
+);    
+}
 }

@@ -2,7 +2,7 @@
 @section('Judul Halaman', 'Sentracom')
 @section('Header', 'Dashboard')
 @section('logo_nav')
-{{url('teknisi')}}
+{{route('dashboard.teknisi')}}
 @endsection
 @section('header_set')
 <li class="nav-item dropdown header-profile">
@@ -75,6 +75,7 @@
                                                     </div>
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <button class="dropdown-item" value="{{$itm->id}}" type="submit" name="cc" >Cancel</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </td>	
@@ -88,6 +89,7 @@
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <button class="dropdown-item" type="button" data-toggle="modal" data-target="#editBar_{{$itm->id}}">Validate</button>
                                                         <button class="dropdown-item" value="{{$itm->id}}" type="submit" name="cc" >Cancel</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </td>
@@ -101,6 +103,7 @@
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <button class="dropdown-item" value="{{$itm->id}}" type="submit" name="sd" >Send</button>
                                                         <button class="dropdown-item" value="{{$itm->id}}" type="submit" name="cc" >Cancel</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </td>
@@ -114,6 +117,7 @@
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <button class="dropdown-item" value="{{$itm->id}}" type="submit" name="cp" >Complete</button>
                                                         <button class="dropdown-item" value="{{$itm->id}}" type="submit" name="cc" >Cancel</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </td>	
@@ -122,6 +126,8 @@
                                             <div class="modal fade bd-example-modal-lg" id="editBar_{{$itm->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-md">
                                                 <div class="modal-content">
+                                                <form action="{{route('teknisi.valid.post')}}" method="post">
+                                                    @csrf
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Bukti Pembayaran</h5>
                                                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
@@ -133,6 +139,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
                                                         <button type="submit" name="cf" class="btn btn-primary" value="{{$itm->id}}" >Confirm</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

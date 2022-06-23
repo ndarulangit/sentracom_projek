@@ -45,8 +45,8 @@
         <div class="nav-header">
             <a href="<?php echo $__env->yieldContent('logo_nav'); ?>" class="brand-logo">
                 <img class="logo-abbr" src="<?php echo e(asset('assets/images/logo.png')); ?>" alt="">
-                <img class="logo-compact" src="<?php echo e(asset('assets/images/logo-text.png')); ?>" alt="">
-                <img class="brand-title" src="<?php echo e(asset('assets/images/logo-text.png')); ?>" alt="">
+                <img class="logo-compact" src="<?php echo e(asset('assets/images/sentra.png')); ?>" alt="">
+                <img class="brand-title" src="<?php echo e(asset('assets/images/sentra.png')); ?>" alt="">
             </a>
 
             <div class="nav-control">
@@ -173,6 +173,7 @@
 	
 	<!-- Dashboard 1 -->
 	<script src="<?php echo e(asset('assets/js/dashboard/dashboard-1.js')); ?>"></script>
+	<script src="<?php echo e(asset('assets/js/dashboard/analytics.js')); ?>"></script>
 	
 	<script>
 		function carouselReview(){

@@ -21,7 +21,7 @@
 </li>
 @endsection
 @section('dashboard_nav')
-<li><a href="{{route('dashboard.admin')}}">Database Sparepart</a></li>
+<li><a href="{{route('data.admin')}}">Database Sparepart</a></li>
 <li><a href="{{route('history.admin')}}">Catatan/History</a></li>
 <li><a href="{{route('confirm.admin')}}">Konfirmasi Orderan</a></li>
 <li><a href="{{route('tracking.admin')}}">Tracking Orderan</a></li>
@@ -78,8 +78,16 @@
 					</div>
 					<div class="d-flex mb-3">
 						<button type="submit" name="filter" value="aa" class="btn btn-secondary text-nowrap mr-3"><i class="fa fa-file-text scale3 mr-3"></i>Filter</button>
-						<button type="submit" name="export" value="ef" class="btn btn-primary text-nowrap mr-3"><i class="fa fa-file-text scale3 mr-3"></i>Generate Report</button>
+						<div class="dropdown ml-auto text-right">
+							<div class="btn-link" data-toggle="dropdown">
+								<button type="button" class="btn btn-primary text-nowrap mr-3"><i class="fa fa-file-text scale3 mr-3"></i>Generate Report</button>
+							</div>
+							<div class="dropdown-menu dropdown-menu-center">
+							<button class="dropdown-item" type="submit" value="sv" name="service" >Service</button>
+							<button class="dropdown-item" type="submit" value="sp" name="sparepart" >Sparepart</button>
 						</form>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -107,8 +115,12 @@
 												<td>#SP-{{$itm->id}}</td>
 												<td>{{ date('F d, Y', strtotime($itm->created_at))}}</td>
 												<td>{{$itm->name}}</td>
+												@if($itm->merek == 'Hardware'&&'Software')
+												<td>Service</td>
+												@else
 												<td>Sparepart</td>
-												<td>{{$itm->nama}} {{$itm->merek}}</td>
+												@endif
+												<td>{{$itm->nama}} ({{$itm->merek}})</td>
 												<td>
 													@if($itm->status == 'complete')
 													<span class="badge light badge-success">

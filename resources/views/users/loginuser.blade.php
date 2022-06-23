@@ -38,7 +38,7 @@
                                 <div class="col-xl-12 mt-2">
                                 <div class="auth-form">
 									<div class="text-center mb-3">
-										<a href="index.html"><img src="{{asset('assets/images/logo-full.png')}}" alt=""></a>
+										<a href="index.html"><img src="{{asset('assets/images/sentra.png')}}" width="200" alt=""></a>
 									</div>
                                     <h4 class="text-center mb-4 text-white">Masuk Dengan Akunmu!</h4>
                                     <form action="{{route ('user.login.post')}}" method="post">

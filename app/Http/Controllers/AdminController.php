@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ServiceExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Exports\SparepartExport;
+use App\Models\Service;
+use App\Models\Sparepart;
+use App\Models\Teknisi;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert ;
 
@@ -13,9 +18,133 @@ class AdminController extends Controller
     public function __construct(){
         $this->middleware('admin');
     }
+    public function dashboard(){
+        $sp = DB::table('orders')->select('*')->get();
+        $sp = count($sp);
+        $sv = DB::table('orders')->select('*')->get();
+        $sv = count($sv);
+        return view('admin.dashboard', compact('sp', 'sv'));
+    }
     public function database(){
         $sp =DB::table('spareparts')->select('*')->get();
         return view('admin.datasp', compact('sp'));
+    }
+    public function updel(Request $request){
+        $sp = new Sparepart;
+        if ($request->get('tambah')) {
+            if ($request->file('gambarT')!=null && $request->get('deskripsiT')!=null) {
+                # code...
+                    $file = $request->file('gambarT');
+                    $filename = date('YmdHi').$file->getClientOriginalName();
+                    $file-> move(public_path('image'), $filename);
+                    $sp->gambar = $filename;
+                    $sp->deskripsi = $request->get('deskripsiT');
+                    $sp->nama = $request->get('namaT');
+                    $sp->merek = $request->get('merekT');
+                    $sp->harga = $request->get('hargaT');
+                    $sp->jumlah = $request->get('jumlahT');
+                    $sp->save();
+            }
+            elseif ($request->file('gambarT')||$request->get('deskripsiT')) {
+                # code...
+                if ($request->file('gambarT') != null) {
+                    # code...
+                    $file = $request->file('gambarT');
+                    $filename = date('YmdHi').$file->getClientOriginalName();
+                    $file-> move(public_path('image'), $filename);
+                    $sp->gambar = $filename;
+                    $sp->nama = $request->get('namaT');
+                    $sp->merek = $request->get('merekT');
+                    $sp->harga = $request->get('hargaT');
+                    $sp->jumlah = $request->get('jumlahT');
+                    $sp->save();
+
+                }
+                elseif ($request->get('deskripsiT')!=null) {
+                    # code...
+                    $sp->deskripsi = $request->get('deskripsiT');
+                    $sp->nama = $request->get('namaT');
+                    $sp->merek = $request->get('merekT');
+                    $sp->harga = $request->get('hargaT');
+                    $sp->jumlah = $request->get('jumlahT');
+                    $sp->save();
+                }
+            }
+            elseif ($request->file('gambarT')==null && $request->get('deskripsiT')==null) {
+                # code...
+                $sp->nama = $request->get('namaT');
+                $sp->merek = $request->get('merekT');
+                $sp->harga = $request->get('hargaT');
+                $sp->jumlah = $request->get('jumlahT');
+                $sp->save();
+            }
+        }
+        elseif ($request->get('update')) {
+            if ($request->file('gambar')!=null && $request->get('deskripsi')!=null) {
+                # code...
+                    $file = $request->file('gambar');
+                    $filename = date('YmdHi').$file->getClientOriginalName();
+                    $file-> move(public_path('image'), $filename);
+                    $sp::where('id', $request->get('update'))->update([
+                    'gambar' => $filename,
+                    'deskripsi' => $request->get('deskripsi'),
+                    'nama' => $request->get('nama'),
+                    'merek' => $request->get('merek'),
+                    'harga' => $request->get('harga'),
+                    'jumlah' => $request->get('jumlah')
+                    ]);
+            }
+            elseif ($request->file('gambar')||$request->get('deskripsi')) {
+                # code...
+                if ($request->file('gambar') != null) {
+                    # code...
+                    $file = $request->file('gambar');
+                    $filename = date('YmdHi').$file->getClientOriginalName();
+                    $file-> move(public_path('image'), $filename);
+                    $sp::where('id', $request->get('update'))->update([
+                    'gambar' => $filename,
+                    'nama' => $request->get('nama'),
+                    'merek' => $request->get('merek'),
+                    'harga' => $request->get('harga'),
+                    'jumlah' => $request->get('jumlah')
+                    ]);
+                }
+                elseif ($request->get('deskripsi')!=null) {
+                    # code...
+                    $sp::where('id', $request->get('update'))->update([
+                    'deskripsi' => $request->get('deskripsi'),
+                    'nama' => $request->get('nama'),
+                    'merek' => $request->get('merek'),
+                    'harga' => $request->get('harga'),
+                    'jumlah' => $request->get('jumlah')
+                    ]);
+                }
+            }
+            elseif ($request->file('gambar')==null && $request->get('deskripsi')==null) {
+                # code...
+                $sp::where('id', $request->get('update'))->update([
+                'nama' => $request->get('nama'),
+                'merek' => $request->get('merek'),
+                'harga' => $request->get('harga'),
+                'jumlah' => $request->get('jumlah')
+                ]);
+            }
+        }
+        elseif ($request->get('delete')) {
+            # code...
+            $sp::where('id', $request->get('delete'))->delete();
+        }
+    }
+    public function regTek(Request $request){
+            # code...
+            // dd($request->get('daftarkan'));
+            $tk = new Teknisi;
+            $tk->name = $request->get('name');
+            $tk->email = $request->get('email');
+            $tk->password = Hash::make($request->get('password'));
+            $tk->save();
+            Alert::success('Berhasil', 'Akun Teknisi atas nama '.$request->get('name').' berhasil dibuat');
+            return redirect()->route('register.admin');
     }
     public function history(){
         $itm = DB::table('orders')
@@ -27,7 +156,8 @@ class AdminController extends Controller
          $sv = DB::table('services')
          ->select( 'services.id', 'services.code', 'services.type', 'services.created_at', 'services.status',
           'users.name as user')
-          ->join('users', 'users.id', '=', 'services.user_id');
+          ->join('users', 'users.id', '=', 'services.user_id')
+          ->whereIn('status', ['complete', 'cancel']);
           $all = $itm->union($sv)->get();
           $t = [];
           for ($i=0; $i <count($all) ; $i++) { 
@@ -39,16 +169,26 @@ class AdminController extends Controller
         return view('admin.history', compact('all', 't'));
     }
     public function filter(Request $request){
-        if ($request->get('export')) {
+        if ($request->get('sparepart')) {
             # code...
             if($request->get('tahun')&&$request->get('bulan')){
-            return $this->export($request->get('tahun'), $request->get('bulan'));
+                return $this->export1($request->get('tahun'), $request->get('bulan'));
         }
             else{
              Alert::error('Gagal!!', 'Lengapi Kolom Filter Sebelum Export');
             }
             return redirect()->route('history.admin');
-        }elseif ($request->get('filter')) {
+        }elseif ($request->get('service')) {
+            # code...
+            if($request->get('tahun')&&$request->get('bulan')){
+                return $this->export2($request->get('tahun'), $request->get('bulan'));
+        }
+            else{
+             Alert::error('Gagal!!', 'Lengapi Kolom Filter Sebelum Export');
+            }
+            return redirect()->route('history.admin');
+        }
+        elseif ($request->get('filter')) {
             # code...
             if($request->get('tahun')&&$request->get('bulan')){
             $itm = DB::table('orders')
@@ -80,8 +220,11 @@ class AdminController extends Controller
 
         }
     }
-    public function export($x, $y){
-        return (new SparepartExport($x, $y))->download('Laporan.xlsx');
+    public function export1($x, $y){
+        return (new SparepartExport($x, $y))->download('Laporan_sparepart.xlsx');
+    }
+    public function export2($x, $y){
+        return (new ServiceExport($x, $y))->download('Laporan_service.xlsx');
     }
     public function orderan(){
         // $y = DB::table('validasis')->select('order_id')->where('id', 3)->get();

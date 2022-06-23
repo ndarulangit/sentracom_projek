@@ -33,15 +33,17 @@ Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin
 Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 //Admin Home page after login
 Route::group(['middleware'=>'admin'], function() {
-    Route::get('/admin/download', [AdminController::class, 'export']);
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.admin');
     Route::post('/admin/filter', [AdminController::class, 'filter'])->name('filter.admin');
-    Route::get('/admin/dashboard', [AdminController::class, 'database'])->name('dashboard.admin');
+    Route::get('/admin/data', [AdminController::class, 'database'])->name('data.admin');
     Route::get('/admin/history', [AdminController::class, 'history'])->name('history.admin');
     Route::get('/admin/confirm', [AdminController::class, 'orderan'])->name('confirm.admin');
     Route::post('/admin/confirm', [AdminController::class, 'konfirmasi'])->name('admin.confirm');
     Route::get('/admin/register', [AdminController::class, 'register'])->name('register.admin');
     Route::get('/admin/tracking', [AdminController::class, 'track'])->name('tracking.admin');
     Route::post('/admin/tracking', [AdminController::class, 'track_post'])->name('admin.tracking');
+    Route::post('/admin/updel', [AdminController::class, 'updel'])->name('admin.updel');
+    Route::post('/admin/regTek', [AdminController::class, 'regTek'])->name('admin.regTek');
 
 });
 // // ============================================================================================================================================
