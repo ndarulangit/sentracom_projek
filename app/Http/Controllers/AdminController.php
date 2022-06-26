@@ -21,7 +21,7 @@ class AdminController extends Controller
     public function dashboard(){
         $sp = DB::table('orders')->select('*')->get();
         $sp = count($sp);
-        $sv = DB::table('orders')->select('*')->get();
+        $sv = DB::table('services')->select('*')->get();
         $sv = count($sv);
         return view('admin.dashboard', compact('sp', 'sv'));
     }
@@ -44,6 +44,9 @@ class AdminController extends Controller
                     $sp->harga = $request->get('hargaT');
                     $sp->jumlah = $request->get('jumlahT');
                     $sp->save();
+
+                    Alert::success('Berhasil', 'Sparepart berhasil ditambahkan');
+                    return redirect()->route('data.admin');
             }
             elseif ($request->file('gambarT')||$request->get('deskripsiT')) {
                 # code...
@@ -58,7 +61,8 @@ class AdminController extends Controller
                     $sp->harga = $request->get('hargaT');
                     $sp->jumlah = $request->get('jumlahT');
                     $sp->save();
-
+                    Alert::success('Berhasil', 'Sparepart berhasil ditambahkan');
+                    return redirect()->route('data.admin');
                 }
                 elseif ($request->get('deskripsiT')!=null) {
                     # code...
@@ -68,6 +72,8 @@ class AdminController extends Controller
                     $sp->harga = $request->get('hargaT');
                     $sp->jumlah = $request->get('jumlahT');
                     $sp->save();
+                    Alert::success('Berhasil', 'Sparepart berhasil ditambahkan');
+                    return redirect()->route('data.admin');
                 }
             }
             elseif ($request->file('gambarT')==null && $request->get('deskripsiT')==null) {
@@ -77,6 +83,8 @@ class AdminController extends Controller
                 $sp->harga = $request->get('hargaT');
                 $sp->jumlah = $request->get('jumlahT');
                 $sp->save();
+                Alert::success('Berhasil', 'Sparepart berhasil ditambahkan');
+                    return redirect()->route('data.admin');
             }
         }
         elseif ($request->get('update')) {
@@ -93,6 +101,8 @@ class AdminController extends Controller
                     'harga' => $request->get('harga'),
                     'jumlah' => $request->get('jumlah')
                     ]);
+                    Alert::success('Berhasil', 'Data sparepart terupdate');
+                    return redirect()->route('data.admin');
             }
             elseif ($request->file('gambar')||$request->get('deskripsi')) {
                 # code...
@@ -108,6 +118,8 @@ class AdminController extends Controller
                     'harga' => $request->get('harga'),
                     'jumlah' => $request->get('jumlah')
                     ]);
+                    Alert::success('Berhasil', 'Data sparepart terupdate');
+                    return redirect()->route('data.admin');
                 }
                 elseif ($request->get('deskripsi')!=null) {
                     # code...
@@ -118,6 +130,8 @@ class AdminController extends Controller
                     'harga' => $request->get('harga'),
                     'jumlah' => $request->get('jumlah')
                     ]);
+                    Alert::success('Berhasil', 'Data sparepart terupdate');
+                    return redirect()->route('data.admin');
                 }
             }
             elseif ($request->file('gambar')==null && $request->get('deskripsi')==null) {
@@ -128,11 +142,15 @@ class AdminController extends Controller
                 'harga' => $request->get('harga'),
                 'jumlah' => $request->get('jumlah')
                 ]);
+                Alert::success('Berhasil', 'Data sparepart terupdate');
+                return redirect()->route('data.admin');
             }
         }
         elseif ($request->get('delete')) {
             # code...
             $sp::where('id', $request->get('delete'))->delete();
+            Alert::error('Berhasil', 'Data sparepart terhapus');
+            return redirect()->route('data.admin');
         }
     }
     public function regTek(Request $request){

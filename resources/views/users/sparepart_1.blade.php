@@ -7,7 +7,7 @@
 @section('header_set')
 <li class="nav-item dropdown header-profile">
 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-<img src="{{asset('assets/images/profile/17.jpg')}}" width="20" alt=""/>
+<img src="{{asset('assets/icons/ava.png')}}" width="20" class="img-fluid rounded-circle" alt="">
 </a>
 <div class="dropdown-menu dropdown-menu-right">
 <form action="{{route ('user.logout')}}" method="post">
@@ -135,8 +135,7 @@
                                                                                             <!-- Tab panes -->
                                                                                             <div class="tab-content">
                                                                                                 <div role="tabpanel" class="tab-pane fade show active" id="first">
-                                                                                                    <img class="img-fluid" src="{{asset('assets/images/product/1.jpg')}}" alt="">
-                                                                                                </div>
+                                                                                                <img src="{{asset('image/'.$itm->gambar)}}" width="200" alt="">                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                         <!--Tab slider End-->
@@ -152,8 +151,7 @@
                                                                                                                 class="fa fa-shopping-basket"></i></span>
                                                                                                     </p>
                                                                                                     <p>Product code: <span class="item">xxx-xxx-{{$itm->id}}</span> </p>
-                                                                                                    <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-                                                                                                        If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
+                                                                                                    <p class="text-content">{{$itm->deskripsi}}</p>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>

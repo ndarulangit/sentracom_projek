@@ -8,7 +8,7 @@
 
 <li class="nav-item dropdown header-profile">
 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-<img src="{{asset('assets/images/profile/17.jpg')}}" width="20" alt=""/>
+<img src="{{asset('assets/icons/ava.png')}}" width="20" class="img-fluid rounded-circle" alt="">
 </a>
 <div class="dropdown-menu dropdown-menu-right">
 <form action="{{route ('user.logout')}}" method="post">
@@ -51,11 +51,13 @@
                         <div class="profile card card-body px-3 pt-3 pb-0">
                             <div class="profile-head">
                                 <div class="photo-content">
-                                    <div class="cover-photo"></div>
+                                    <div class="cover-photo">
+										<img src="{{asset('assets/icons/pr.jpg')}}" class="img-fluid" alt="">
+                                    </div>
                                 </div>
                                 <div class="profile-info">
 									<div class="profile-photo">
-										<img src="{{asset('assets/images/profile/profile.png')}}" class="img-fluid rounded-circle" alt="">
+										<img src="{{asset('assets/icons/ava.png')}}" width="200" class="img-fluid rounded-circle" alt="">
 									</div>
 									<div class="profile-details">
 										<div class="profile-name px-3 pt-2">

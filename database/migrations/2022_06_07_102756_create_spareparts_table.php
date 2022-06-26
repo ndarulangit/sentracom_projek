@@ -18,7 +18,7 @@ class CreateSparepartsTable extends Migration
             $table->string('nama');
             $table->string('merek');
             $table->string('gambar')->nullable();
-            $table->string('deskripsi')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->integer('harga');
             $table->integer('jumlah');
             $table->timestamps();

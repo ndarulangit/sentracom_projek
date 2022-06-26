@@ -8,7 +8,7 @@
 <?php $__env->startSection('header_set'); ?>
 <li class="nav-item dropdown header-profile">
 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-<img src="<?php echo e(asset('assets/images/profile/17.jpg')); ?>" width="20" alt=""/>
+<img src="<?php echo e(asset('assets/icons/ava.png')); ?>" width="20" class="img-fluid rounded-circle" alt="">
 </a>
 <div class="dropdown-menu dropdown-menu-right">
 <form action="<?php echo e(route ('user.logout')); ?>" method="post">
