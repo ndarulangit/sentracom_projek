@@ -128,6 +128,41 @@
                                         </div>
                                         <div class="tab-pane fade" id="profile2">
                                             <div class="pt-4">
+                                                <div class="col-xl-12">
+                                                <table id="example5" class="display min-w850">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Nama Barang</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($sv1 as $od)
+                                                    @if($od->status == 'complete' || $od->status == 'cancel')
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>{{$od->code}} {{$od->type}}</td>
+                                                    <td>
+                                                        @if($od->status == 'cancel')
+                                                        <span class="badge light badge-dark">
+                                                            <i class="fa fa-circle text-dark mr-1"></i>
+                                                            Canceled
+                                                        </span>
+                                                        </td>
+                                                        @elseif($od->status == 'complete')
+                                                        <span class="badge light badge-success">
+                                                            <i class="fa fa-circle text-success mr-1"></i>
+                                                            Completed
+                                                        </span>
+                                                        </td>
+                                                            @endif
+                                                </tr>
+                                                @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

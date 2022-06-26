@@ -8,7 +8,7 @@
 <?php $__env->startSection('header_set'); ?>
 <li class="nav-item dropdown header-profile">
 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-<img src="<?php echo e(asset('assets/images/profile/17.jpg')); ?>" width="20" alt=""/>
+<img src="<?php echo e(asset('assets/icons/ava.png')); ?>" width="20" class="img-fluid rounded-circle" alt="">
 </a>
 <div class="dropdown-menu dropdown-menu-right">
 <form action="<?php echo e(route ('user.logout')); ?>" method="post">
@@ -136,6 +136,41 @@
                                         </div>
                                         <div class="tab-pane fade" id="profile2">
                                             <div class="pt-4">
+                                                <div class="col-xl-12">
+                                                <table id="example5" class="display min-w850">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Nama Barang</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $__currentLoopData = $sv1; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $od): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php if($od->status == 'complete' || $od->status == 'cancel'): ?>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td><?php echo e($od->code); ?> <?php echo e($od->type); ?></td>
+                                                    <td>
+                                                        <?php if($od->status == 'cancel'): ?>
+                                                        <span class="badge light badge-dark">
+                                                            <i class="fa fa-circle text-dark mr-1"></i>
+                                                            Canceled
+                                                        </span>
+                                                        </td>
+                                                        <?php elseif($od->status == 'complete'): ?>
+                                                        <span class="badge light badge-success">
+                                                            <i class="fa fa-circle text-success mr-1"></i>
+                                                            Completed
+                                                        </span>
+                                                        </td>
+                                                            <?php endif; ?>
+                                                </tr>
+                                                <?php endif; ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </tbody>
+                                            </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

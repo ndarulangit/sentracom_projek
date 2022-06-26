@@ -188,7 +188,14 @@ class UserController extends Controller
          ->where('services.user_id', '=', $user['id'])
          ->whereIn('status', ['pending', 'checking', 'in process', 'validate', 'finish', 'send', 'confirm'])
         ->orderBy('services.created_at', 'DESC')->get();
-        return view('users.checkout_sv', compact('sv'));
+        $sv1 = DB::table('services')
+        ->select('services.id', 'services.code', 'services.ket', 'services.booking', 'services.status', 'services.amount',
+         'users.name', 'users.email', 'users.alamat')
+         ->join('users', 'users.id', '=', 'services.user_id')
+         ->where('services.user_id', '=', $user['id'])
+         ->whereIn('status', ['cancel', 'complete'])
+        ->orderBy('services.created_at', 'DESC')->get();
+        return view('users.checkout_sv', compact('sv', 'sv1'));
     }
     public function checkout_sp(){
         $user = Auth::guard('user')->user();
