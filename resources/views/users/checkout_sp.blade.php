@@ -130,41 +130,7 @@
                                                                                 <p>Pesanan berhasil dicheckout</p>
                                                                             </a>
                                                                         </li>
-                                                                        <li>
-                                                                            <div class="timeline-badge info">
-                                                                            </div>
-                                                                            <a class="timeline-panel text-muted">
-                                                                                <h4 class="mb-0">Process</h4>
-                                                                                <p>Pesanan berhasil diproses</p>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="timeline-badge danger">
-                                                                            </div>
-                                                                            <a class="timeline-panel text-muted">
-                                                                                <h4 class="mb-0">Validate</h4>
-                                                                                <p>Pembayaran sedang divalidasi</p>
-                                                                            </a>
-                                                                        </li>
-                                                                        @if($track->status == 'confirm')
-                                                                        <li>
-                                                                            <div class="timeline-badge success">
-                                                                            </div>
-                                                                            <a class="timeline-panel text-muted">
-                                                                                <h4 class="mb-0">Validation Complete</h4>
-                                                                                <p>Pembayaran anda tervalidasi</p>
-                                                                            </a>
-                                                                        </li>
-                                                                        @elseif($track->status == 'send')
-                                                                        <li>
-                                                                            <div class="timeline-badge success">
-                                                                            </div>
-                                                                            <a class="timeline-panel text-muted">
-                                                                                <h4 class="mb-0">Validation Complete</h4>
-                                                                                <p>Pembayaran anda tervalidasi</p>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
+                                                                        @if($track->status == 'send')
                                                                             <div class="timeline-badge warning">
                                                                             </div>
                                                                             <a class="timeline-panel text-muted">

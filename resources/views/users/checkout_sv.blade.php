@@ -90,22 +90,10 @@
                                                                 <td class="py-2">{{$data->booking}}</td>
                                                                 <td class="py-2">{{$data->alamat}}</td>
                                                                 <td class="py-2">{{$data->ket}}</td>
-                                                                @if($data->status == 'pending')
+                                                                @if($data->status != 'send' && 'finish')
                                                                 <td class="py-2 text-center"><span class="badge badge-secondary">{{$data->status}}<span class="ml-1 fa fa-check"></span></span></td>
                                                                 <td class="py-2 text-center">{{$data->amount}}
-                                                                @elseif($data->status == 'checking')
-                                                                <td class="py-2 text-center"><span class="badge badge-warning">{{$data->status}}<span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center">{{$data->amount}}
-                                                                @elseif($data->status == 'in process')
-                                                                <td class="py-2 text-center"><span class="badge badge-info">{{$data->status}}<span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center">{{$data->amount}}
-                                                                @elseif($data->status == 'validate')
-                                                                <td class="py-2 text-center"><span class="badge badge-warning">{{$data->status}}<span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center">{{$data->amount}}
                                                                 @elseif($data->status == 'send')
-                                                                <td class="py-2 text-center"><span class="badge badge-warning">{{$data->status}}<span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center">{{$data->amount}}
-                                                                @elseif($data->status == 'confirm')
                                                                 <td class="py-2 text-center"><span class="badge badge-warning">{{$data->status}}<span class="ml-1 fa fa-check"></span></span></td>
                                                                 <td class="py-2 text-center">{{$data->amount}}
                                                                 @elseif($data->status == 'finish')
