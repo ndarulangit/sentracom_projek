@@ -104,6 +104,7 @@
                                             </thead>
                                             <tbody>
                                                     @foreach($fltr2 as $itm)
+                                                    @if($itm->jumlah != 0)
                                                     <tr>
                                                     <th><input type="checkbox" name="subpro[]" value={{$itm->id}}></th>
                                                     <th>{{$itm->jumlah}}</th>
@@ -169,6 +170,7 @@
                                                     </div>
                                                     <!--Modal End !-->
                                                 </tr>
+                                                @endif
                                                 @endforeach
                                             </tbody>
                                         </table>

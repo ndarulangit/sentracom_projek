@@ -105,6 +105,7 @@
                                             </thead>
                                             <tbody>
                                                     <?php $__currentLoopData = $fltr2; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $itm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php if($itm->jumlah != 0): ?>
                                                     <tr>
                                                     <th><input type="checkbox" name="subpro[]" value=<?php echo e($itm->id); ?>></th>
                                                     <th><?php echo e($itm->jumlah); ?></th>
@@ -170,6 +171,7 @@
                                                     </div>
                                                     <!--Modal End !-->
                                                 </tr>
+                                                <?php endif; ?>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </tbody>
                                         </table>

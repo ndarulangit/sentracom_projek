@@ -71,7 +71,7 @@
                             <div class="col-lg-9 mb-2">
                                 <div class="form-group">
                                     <label class="text-label">Password</label>
-                                    <input type="text" name="phoneNumber" class="form-control" placeholder="Password" required>
+                                    <input type="text" name="password" class="form-control" placeholder="Password" required>
                                 </div>
                             </div>
                             <div class="col-lg-9"></div>

@@ -189,7 +189,7 @@ class UserController extends Controller
          ->whereIn('status', ['pending', 'checking', 'in process', 'validate', 'finish', 'send', 'confirm'])
         ->orderBy('services.created_at', 'DESC')->get();
         $sv1 = DB::table('services')
-        ->select('services.id', 'services.code', 'services.ket', 'services.booking', 'services.status', 'services.amount',
+        ->select('services.id', 'services.code', 'services.type', 'services.ket', 'services.booking', 'services.status', 'services.amount',
          'users.name', 'users.email', 'users.alamat')
          ->join('users', 'users.id', '=', 'services.user_id')
          ->where('services.user_id', '=', $user['id'])

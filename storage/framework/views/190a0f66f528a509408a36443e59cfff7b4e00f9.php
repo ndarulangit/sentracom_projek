@@ -91,27 +91,11 @@
                                                                 <td class="py-2"><?php echo e($data->booking); ?></td>
                                                                 <td class="py-2"><?php echo e($data->alamat); ?></td>
                                                                 <td class="py-2"><?php echo e($data->ket); ?></td>
-                                                                <?php if($data->status == 'pending'): ?>
-                                                                <td class="py-2 text-center"><span class="badge badge-secondary"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
-
-                                                                <?php elseif($data->status == 'checking'): ?>
-                                                                <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
-
-                                                                <?php elseif($data->status == 'in process'): ?>
-                                                                <td class="py-2 text-center"><span class="badge badge-info"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
-
-                                                                <?php elseif($data->status == 'validate'): ?>
-                                                                <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
+                                                                <?php if($data->status != 'send' && $data->status !='finish'): ?>
+                                                                <td class="py-2 text-center"><span class="badge badge-secondary">Process<span class="ml-1 fa fa-check"></span></span></td>
                                                                 <td class="py-2 text-center"><?php echo e($data->amount); ?>
 
                                                                 <?php elseif($data->status == 'send'): ?>
-                                                                <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
-
-                                                                <?php elseif($data->status == 'confirm'): ?>
                                                                 <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
                                                                 <td class="py-2 text-center"><?php echo e($data->amount); ?>
 
