@@ -99,7 +99,10 @@
                                                     $total += $y[0]->amount;
                                                 }
                                                 ?>
-                                                <span>Transfer sesuai harga : <br><strong class="d-block mt-1">{{$total}}</strong>
+                                                <span>Transfer sesuai harga : <br><strong class="d-block mt-1">IDR <?php 
+                                                $num = $total;
+                                                $num = sprintf("%.2f", $num);
+                                                echo number_format($num, 2, ".", ",");?></strong>
                                                     <strong>=========================</strong></span><br>
                                                 <small class="text-muted">No. Rekening = xx xxxxx xxx</small>
                                             </div>
@@ -135,7 +138,10 @@
                                                 <td class="center">xxx{{$itm->id}}</td>
                                                 <td class="left strong">{{$itm->nama}}</td>
                                                 <td class="left">{{$itm->merek}}</td>
-                                                <td class="right">IDR {{$itm->harga}}</td>
+                                                <td class="right">IDR <?php 
+                                                $num = $itm->harga;
+                                                $num = sprintf("%.2f", $num);
+                                                echo number_format($num, 2, ".", ",");?></td>
                                                 <td class="center">{{$itm->jumlah}}</td>
                                             </tr>
                                             @endforeach
@@ -169,7 +175,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="left"><strong>Total</strong></td>
-                                                    <td class="right"><strong>IDR {{$total+14000}}</strong><br>
+                                                    <td class="right"><strong>IDR <?php 
+                                                $num = $total+14000;
+                                                $num = sprintf("%.2f", $num);
+                                                echo number_format($num, 2, ".", ",");?></strong><br>
                                                 </tr>
                                                 <tr>
                                                     <td class="left">

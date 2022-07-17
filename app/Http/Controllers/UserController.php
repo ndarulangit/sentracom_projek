@@ -21,7 +21,6 @@ class UserController extends Controller
     public function index(){
         return view ('dashboard');
     }
-
     public function sparepart(Request $request){
         DB::statement("SET SQL_MODE=''");
         $cr = $request->get('nama_sparepart');
@@ -33,24 +32,21 @@ class UserController extends Controller
             $fltr2 = DB::table('spareparts')->select('*')
             ->where('nama', 'LIKE', '%'.$cr.'%')
             ->get();
-            return view('users.sparepart_1', compact('fltr', 'fltr2', 'cr'));
+            return view('users.sparepart', compact('fltr', 'fltr2', 'cr'));
         }
         else{
-            return view('users.sparepart_1', compact('fltr',  'cr'));
+            return view('users.sparepart', compact('fltr',  'cr'));
         }
     }
     public function order(Request $request){
-        $t_order = $request->get('subpro');
+        $t_order = $request->get('id');
         $client = collect(Auth::guard('user')->id());
-        $jml = $request->get('qty');
-        if (isset($t_order)&&isset($jml)) {
-            for ($i=0; $i < count($t_order) ; $i++) { 
+        if ($t_order) {
                 $order = new Order;
                 $order -> user_id = $client['0'];
-                $order -> sparepart_id = $t_order[$i];
-                $order -> jumlah = $jml[$i];
+                $order -> sparepart_id = $t_order;
+                $order -> jumlah = 1;
                 $order ->save();
-            }
             Alert::success('Berhasil!!', 'Orderan anda berhasil');
             return redirect()->route('user.sp');
             # code...

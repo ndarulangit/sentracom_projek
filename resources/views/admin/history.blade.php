@@ -112,10 +112,14 @@
 										<tbody>
 											@foreach($all as $itm)
 											<tr>
-												<td>#SP-{{$itm->id}}</td>
+												@if($itm->merek == 'Hardware'||$itm->merek == 'Software')
+												<td>#Service-{{$itm->id}}</td>
+												@else
+												<td>#Sparepart-{{$itm->id}}</td>
+												@endif
 												<td>{{ date('F d, Y', strtotime($itm->created_at))}}</td>
 												<td>{{$itm->name}}</td>
-												@if($itm->merek == 'Hardware'&&'Software')
+												@if($itm->merek == 'Hardware'||$itm->merek == 'Software')
 												<td>Service</td>
 												@else
 												<td>Sparepart</td>

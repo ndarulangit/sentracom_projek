@@ -67,22 +67,20 @@
                                     <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
                                         <div class="product-detail-content">
                                             <!--Product details-->
-                                            <form action="{{route('user.submit', $id_s)}}" method="post">
+                                            <form action="" method="post">
                                                 @csrf
-                                            @foreach ($item as $item)
+                                            @foreach ($fltr as $item)
                                             <div class="new-arrival-content pr">
                                                 <h4>{{$item->nama}} {{$item->merek}}</h4>
 												<div class="d-table mb-2">
 													<p class="price float-left d-block">IDR {{$item->harga}}</p>
                                                 </div>
-                                                <p>Ketersediaan: <span class="item"> {{$item->jumlah}} <i
+                                                <p>Jumlah Tersedia: <span class="item"> {{$item->jumlah}} <i
                                                             class="fa fa-shopping-basket"></i></span>
                                                 </p>
-                                                <p>Product code: <span class="item">xxx-xxx-{{$item->id}}</span> </p>
-                                                <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-                                                    If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
-                                                <br><br><br><br>
-                                                <div class="shopping-cart float-right pt-3 mr-5">
+                                                <p>Produk kode: <span class="item">xx-{{$item->id}}</span> </p>
+                                                <p class="text-content">{{$item->deskripsi}}</p>
+                                                <div class="shopping-cart float-right mr-5">
                                                     <button type="submit" class="btn btn-primary btn-lg"><i
                                                             class="fa fa-shopping-basket mr-2"></i>Chekcout</button>
                                                 </div>

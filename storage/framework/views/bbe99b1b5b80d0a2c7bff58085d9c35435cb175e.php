@@ -8,15 +8,14 @@
 <?php $__env->startSection('header_set'); ?>
 <li class="nav-item dropdown header-profile">
 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-<img src="<?php echo e(asset('assets/images/profile/17.jpg')); ?>" width="20" alt=""/>
+<img src="<?php echo e(asset('assets/icons/ava.png')); ?>" width="20" class="img-fluid rounded-circle" alt="">
 </a>
 <div class="dropdown-menu dropdown-menu-right">
 <form action="<?php echo e(route ('user.logout')); ?>" method="post">
     <?php echo csrf_field(); ?>
-<a href="<?php echo e(route ('user.logout')); ?>" class="dropdown-item ai-icon">
+<button type="submit" class="dropdown-item ai-icon">
 <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 <span class="ml-2">Logout </span>
-</a>
 </form>
 </div>
 </li>
@@ -30,6 +29,16 @@
         <li><a href="<?php echo e(url('user/checkout_sp')); ?>">Sparepart</a></li>
     </ul>
 </li><?php $__env->stopSection(); ?>
+<?php $__env->startSection('dahsboard_nav_profile'); ?>
+<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+    <i class="flaticon-381-layer-1"></i>
+    <span class="nav-text">Users</span>
+</a>
+<ul aria-expanded="false">
+    <li><a href="<?php echo e(url('user/profile')); ?>">Profile</a></li>
+</ul>
+</li>
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
    <!--**********************************
             Content body start
@@ -59,22 +68,20 @@
                                     <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
                                         <div class="product-detail-content">
                                             <!--Product details-->
-                                            <form action="<?php echo e(route('user.submit', $id_s)); ?>" method="post">
+                                            <form action="" method="post">
                                                 <?php echo csrf_field(); ?>
-                                            <?php $__currentLoopData = $item; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $__currentLoopData = $fltr; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <div class="new-arrival-content pr">
                                                 <h4><?php echo e($item->nama); ?> <?php echo e($item->merek); ?></h4>
 												<div class="d-table mb-2">
 													<p class="price float-left d-block">IDR <?php echo e($item->harga); ?></p>
                                                 </div>
-                                                <p>Ketersediaan: <span class="item"> <?php echo e($item->jumlah); ?> <i
+                                                <p>Jumlah Tersedia: <span class="item"> <?php echo e($item->jumlah); ?> <i
                                                             class="fa fa-shopping-basket"></i></span>
                                                 </p>
-                                                <p>Product code: <span class="item">xxx-xxx-<?php echo e($item->id); ?></span> </p>
-                                                <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-                                                    If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
-                                                <br><br><br><br>
-                                                <div class="shopping-cart float-right pt-3 mr-5">
+                                                <p>Produk kode: <span class="item">xx-<?php echo e($item->id); ?></span> </p>
+                                                <p class="text-content"><?php echo e($item->deskripsi); ?></p>
+                                                <div class="shopping-cart float-right mr-5">
                                                     <button type="submit" class="btn btn-primary btn-lg"><i
                                                             class="fa fa-shopping-basket mr-2"></i>Chekcout</button>
                                                 </div>

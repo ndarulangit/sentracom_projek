@@ -93,9 +93,10 @@
                                                         <td class="py-2"><?php echo e($data->alamat); ?></td>
                                                         <td class="py-2"><?php echo e($data->nama); ?> <?php echo e($data->merek); ?></td>
                                                         <td class="py-2 text-center"><span class="badge badge-secondary"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                        <td class="py-2 text-center">IDR <?php echo e(($data->harga)*($data->jumlah)); ?>
-
-                                                            </td>
+                                                        <td class="py-2 text-center">IDR <?php 
+                                                        $num = ($data->harga)*($data->jumlah);
+                                                        $num = sprintf("%.2f", $num);
+                                                        echo number_format($num, 2, ".", ",");?></td>
                                                         <td class="py-2 text-right">
                                                             </td>
                                                         <td><input type="checkbox" name="cekot[]" value=<?php echo e($data->id); ?>></td>

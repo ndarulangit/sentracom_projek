@@ -78,7 +78,6 @@ Route::group(['middleware'=>'user'], function() {
     Route::get('/user/sparepart', [UserController::class,'sparepart'])->name('user.sp');
     Route::post('/user/sparepart', [UserController::class,'sparepart'])->name('user.sp');
     Route::post('/user/sparepart/kirim', [UserController::class,'order'])->name('user.order');
-    // Route::post('/user/sparepart/order/{id_s}', [UserController::class,'submit'])->name('user.submit');
     Route::get('/user/checkout_sv', [UserController::class,'checkout_sv'])->name('user.cekot.sv');
     Route::post('/user/checkout_sv', [UserController::class,'sv_order'])->name('user.sv_order');
     Route::get('/user/checkout_sp', [UserController::class,'checkout_sp'])->name('cekot.sp');

@@ -93,16 +93,22 @@
                                                                 <td class="py-2"><?php echo e($data->ket); ?></td>
                                                                 <?php if($data->status != 'send' && $data->status !='finish'): ?>
                                                                 <td class="py-2 text-center"><span class="badge badge-secondary">Process<span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
-
+                                                                <td class="py-2 text-center">IDR <?php 
+                                                                $num = $data->amount;
+                                                                $num = sprintf("%.2f", $num);
+                                                                echo number_format($num, 2, ".", ",");?>
                                                                 <?php elseif($data->status == 'send'): ?>
                                                                 <td class="py-2 text-center"><span class="badge badge-warning"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
-
+                                                                <td class="py-2 text-center">IDR <?php 
+                                                                $num = $data->amount;
+                                                                $num = sprintf("%.2f", $num);
+                                                                echo number_format($num, 2, ".", ",");?>
                                                                 <?php elseif($data->status == 'finish'): ?>
                                                                 <td class="py-2 text-center"><span class="badge badge-success"><?php echo e($data->status); ?><span class="ml-1 fa fa-check"></span></span></td>
-                                                                <td class="py-2 text-center"><?php echo e($data->amount); ?>
-
+                                                                <td class="py-2 text-center">IDR <?php 
+                                                                $num = $data->amount;
+                                                                $num = sprintf("%.2f", $num);
+                                                                echo number_format($num, 2, ".", ",");?>
                                                                 </td>
                                                                 <td> <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
                                                                     <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="order-dropdown-0">

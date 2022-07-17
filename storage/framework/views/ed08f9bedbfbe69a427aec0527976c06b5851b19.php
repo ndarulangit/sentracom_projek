@@ -87,7 +87,11 @@
                                                     # code...
                                                 }
                                                 ?>
-                                                <span>Transfer sesuai harga : <br><strong class="d-block mt-1"><?php echo e($total); ?></strong>
+                                                <span>Transfer sesuai harga : <br><strong class="d-block mt-1">
+                                                IDR <?php 
+                                                $num = $total;
+                                                $num = sprintf("%.2f", $num);
+                                                echo number_format($num, 2, ".", ",");?></strong>
                                                     <strong>=========================</strong></span><br>
                                                 <small class="text-muted">No. Rekening = xx xxxxx xxx</small>
                                             </div>
@@ -113,7 +117,10 @@
                                                 <td class="center">xxx<?php echo e($itm->order_id); ?></td>
                                                 <td class="left strong"><?php echo e($itm->nama); ?></td>
                                                 <td class="left"><?php echo e($itm->merek); ?></td>
-                                                <td class="right">IDR <?php echo e($itm->harga); ?></td>
+                                                <td class="right">IDR <?php 
+                                                $num = $itm->harga;
+                                                $num = sprintf("%.2f", $num);
+                                                echo number_format($num, 2, ".", ",");?></td>
                                                 <td class="center"><?php echo e($itm->jumlah); ?></td>
                                             </tr>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -146,7 +153,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="left"><strong>Total</strong></td>
-                                                    <td class="right"><strong>IDR <?php echo e($total+14000); ?></strong><br>
+                                                    <td class="right"><strong>IDR <?php 
+                                                $num = $total+14000;
+                                                $num = sprintf("%.2f", $num);
+                                                echo number_format($num, 2, ".", ",");?></strong><br>
                                                 </tr>
                                                 <tr>
                                                     <td class="left">
